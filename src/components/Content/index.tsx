@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Container} from './style'
+import {Container} from './styles'
 
-export const Content: React.FC = () => {
+const Content: React.FC = () => {
 	return (
     <Container>
       <h1>Content</h1>

@@ -9,7 +9,7 @@ export default {
 
 		white: '#000',
 		black: '#FFF',
-		grey: '#BFBFBF',
+		grey: '#6B6B6B',
 
 		success: '#03BB85',
 		info: '#3B5998',
