@@ -39,4 +39,8 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  icon {
+    font-size: 35px
+  }
+
 `;

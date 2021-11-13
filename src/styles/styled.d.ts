@@ -16,6 +16,12 @@ declare module 'styled-components' {
 			success: string;
 			info: string;
 			warning: string;
+
+			entries: string;
+			outflows: string;
+			generic: string;
+			recurring: string;
+			eventual: string;
 		};
 	}
 }

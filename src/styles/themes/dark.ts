@@ -14,5 +14,12 @@ export default {
 		success: '#4E41F0',
 		info: '#F7931B',
 		warning: '#E44C4E',
+
+    entries: '#187D5F',
+    outflows: '#CC2A2C',
+    generic: '#258FB0',
+    recurring: '#4E41F0',
+    eventual: '#D0CB4B'
 	},
+
 };

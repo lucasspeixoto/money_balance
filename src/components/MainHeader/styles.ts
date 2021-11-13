@@ -15,6 +15,10 @@ export const Profile = styled.div`
 	color: ${props => props.theme.colors.grey};
 `;
 
-export const Welcome = styled.h3``;
+export const Welcome = styled.h3`
+	color: ${props => props.theme.colors.white};
+`;
 
-export const UserName = styled.span``;
+export const UserName = styled.span`
+	color: ${props => props.theme.colors.white};
+`;

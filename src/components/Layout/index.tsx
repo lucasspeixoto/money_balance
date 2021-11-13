@@ -6,12 +6,12 @@ import MainHeader from '../MainHeader';
 import Aside from '../Aside';
 import Content from '../Content';
 
-export const Layout: React.FC = () => {
+const Layout: React.FC = props => {
 	return (
 		<Container>
 			<MainHeader />
 			<Aside />
-			<Content />
+			<Content>{props.children}</Content>
 		</Container>
 	);
 };
