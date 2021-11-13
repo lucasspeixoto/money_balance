@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	width: 15px;
 }
 
@@ -16,7 +16,7 @@ export default createGlobalStyle`
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #252A48;
 	border: 1px solid #fff;
-}
+} */
 
   * {
     margin: 0;
