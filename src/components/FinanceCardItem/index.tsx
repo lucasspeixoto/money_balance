@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Tag } from './styles';
 
-interface IFinanceCardItemProps {
-	cardColor: string;
+export interface IFinanceCardItemProps {
 	tagColor: string;
 	title: string;
 	subtitle: string;
@@ -11,7 +10,7 @@ interface IFinanceCardItemProps {
 
 const FinanceCardItem: React.FC<IFinanceCardItemProps> = props => {
 	return (
-		<Container color={props.cardColor}>
+		<Container>
 			<Tag color={props.tagColor} />
 			<div>
 				<span>{props.title}</span>
