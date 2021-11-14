@@ -9,8 +9,6 @@ interface IContentHeaderProps {
 }
 
 const ContentHeader: React.FC<IContentHeaderProps> = props => {
-
-
 	return (
 		<Container>
 			<TitleContainer lineColor={props.lineColor}>

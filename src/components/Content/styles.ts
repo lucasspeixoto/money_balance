@@ -13,16 +13,15 @@ export const Container = styled.div`
 	}
 
 	::-webkit-scrollbar-thumb {
-		color: ${props => props.theme.colors.tertiary};
-		background-color: ${props => props.theme.colors.secondary};
-		border: 1px solid ${props => props.theme.colors.tertiary};
+		background-color: ${props => props.theme.colors.primary};
+    border: 1px solid ${props => props.theme.colors.generic};
 		border-radius: 20px;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
 		background-color: ${props => props.theme.colors.tertiary};
-		border: 1px solid ${props => props.theme.colors.generic};
 	}
+
 	::-webkit-scrollbar-track {
 		background-color: ${props => props.theme.colors.tertiary};
 	}

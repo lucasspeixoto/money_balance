@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput/';
+import FinanceCardItem from '../../components/FinanceCardItem';
 
-export const List: React.FC = () => {
+const List: React.FC = () => {
 	const months = [
 		{ value: 'Janeiro', label: 'Janeiro' },
 		{ value: 'Fevereiro', label: 'Fevereiro' },
@@ -37,10 +38,97 @@ export const List: React.FC = () => {
 
 	return (
 		<Container>
-			<ContentHeader title='List' lineColor='#9425b0'>
+			<ContentHeader title='List' lineColor='#CC2A2C'>
 				<SelectInput options={months} />
 				<SelectInput options={years} />
 			</ContentHeader>
+
+			<Content>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+				<FinanceCardItem
+					cardColor='#313869'
+					tagColor='#D0CB4B'
+					title='Conta de Luz'
+					subtitle='13/11/2021'
+					amount='R$ 125,00'
+				/>
+			</Content>
 		</Container>
 	);
 };
