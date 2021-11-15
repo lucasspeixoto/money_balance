@@ -1,43 +1,51 @@
 import React from 'react';
 
-import { Container, Content } from './styles';
+import { Container, Content, Filters } from './styles';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput/';
 import FinanceCardItem, {
 	IFinanceCardItemProps,
 } from '../../components/FinanceCardItem';
 
-interface ICardItem {}
+interface IMonths {
+	value: number;
+	label: string;
+}
+
+interface IYears {
+	value: number;
+	label: number;
+}
 
 const List: React.FC = () => {
-	const months = [
-		{ value: 'Janeiro', label: 'Janeiro' },
-		{ value: 'Fevereiro', label: 'Fevereiro' },
-		{ value: 'Março', label: 'Março' },
-		{ value: 'Abril', label: 'Abril' },
-		{ value: 'Maio', label: 'Maio' },
-		{ value: 'Junho', label: 'Junho' },
-		{ value: 'Julho', label: 'Julho' },
-		{ value: 'Agosto', label: 'Agosto' },
-		{ value: 'Setembro', label: 'Setembro' },
-		{ value: 'Outubro', label: 'Outubro' },
-		{ value: 'Novembro', label: 'Novembro' },
-		{ value: 'Dezembro', label: 'Dezembro' },
+	const months: IMonths[] = [
+		{ value: 1, label: 'Janeiro' },
+		{ value: 2, label: 'Fevereiro' },
+		{ value: 3, label: 'Março' },
+		{ value: 4, label: 'Abril' },
+		{ value: 5, label: 'Maio' },
+		{ value: 6, label: 'Junho' },
+		{ value: 7, label: 'Julho' },
+		{ value: 8, label: 'Agosto' },
+		{ value: 9, label: 'Setembro' },
+		{ value: 10, label: 'Outubro' },
+		{ value: 11, label: 'Novembro' },
+		{ value: 12, label: 'Dezembro' },
 	];
 
-	const years = [
-		{ value: '2019', label: '2019' },
-		{ value: '2020', label: '2020' },
-		{ value: '2021', label: '2021' },
-		{ value: '2022', label: '2022' },
-		{ value: '2023', label: '2023' },
-		{ value: '2024', label: '2024' },
-		{ value: '2025', label: '2025' },
-		{ value: '2026', label: '2026' },
-		{ value: '2027', label: '2027' },
-		{ value: '2028', label: '2028' },
-		{ value: '2029', label: '2029' },
-		{ value: '2030', label: '2030' },
+	const years: IYears[] = [
+		{ value: 2019, label: 2019 },
+		{ value: 2020, label: 2020 },
+		{ value: 2021, label: 2021 },
+		{ value: 2022, label: 2022 },
+		{ value: 2023, label: 2023 },
+		{ value: 2024, label: 2024 },
+		{ value: 2025, label: 2025 },
+		{ value: 2026, label: 2026 },
+		{ value: 2027, label: 2027 },
+		{ value: 2028, label: 2028 },
+		{ value: 2029, label: 2029 },
+		{ value: 2030, label: 2030 },
 	];
 
 	const items: IFinanceCardItemProps[] = [
@@ -67,14 +75,21 @@ const List: React.FC = () => {
 		},
 	];
 
-	console.log(items);
-
 	return (
 		<Container>
 			<ContentHeader title='List' lineColor='#CC2A2C'>
 				<SelectInput options={months} />
 				<SelectInput options={years} />
 			</ContentHeader>
+
+			<Filters>
+				<button className='tag-filter tag-filter-recurring' type='button'>
+					Recorrentes
+				</button>
+				<button className='tag-filter tag-filter-eventual' type='button'>
+					Eventuais
+				</button>
+			</Filters>
 
 			<Content>
 				{items.map(item => (

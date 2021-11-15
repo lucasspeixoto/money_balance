@@ -1,6 +1,6 @@
 import React from 'react';
-import { FcComboChart, FcDocument, FcUp, FcDown } from 'react-icons/fc';
-import { MdExitToApp } from 'react-icons/md';
+import { FcComboChart, FcUp, FcDown } from 'react-icons/fc';
+import { MdExitToApp, MdAddchart } from 'react-icons/md';
 
 import {
 	Container,
@@ -28,7 +28,7 @@ export const Aside: React.FC = () => {
 				</MenuItemLink>
 
 				<MenuItemLink href='#'>
-					<FcDocument />
+					<MdAddchart />
 					Adicionar
 				</MenuItemLink>
 
