@@ -8,17 +8,20 @@ export interface IFinanceCardItemProps {
 	amount: string;
 }
 
-const FinanceCardItem: React.FC<IFinanceCardItemProps> = props => {
+export const FinanceCardItem: React.FC<IFinanceCardItemProps> = ({
+	tagColor,
+	title,
+	subtitle,
+	amount,
+}) => {
 	return (
 		<Container>
-			<Tag color={props.tagColor} />
+			<Tag color={tagColor} />
 			<div>
-				<span>{props.title}</span>
-				<small>{props.subtitle}</small>
+				<span>{title}</span>
+				<small>{subtitle}</small>
 			</div>
-			<h3>{props.amount}</h3>
+			<h3>{amount}</h3>
 		</Container>
 	);
 };
-
-export default FinanceCardItem;

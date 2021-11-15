@@ -8,15 +8,17 @@ interface IContentHeaderProps {
 	children: React.ReactNode;
 }
 
-const ContentHeader: React.FC<IContentHeaderProps> = props => {
+export const ContentHeader: React.FC<IContentHeaderProps> = ({
+	lineColor,
+	title,
+	children,
+}) => {
 	return (
 		<Container>
-			<TitleContainer lineColor={props.lineColor}>
-				<h1>{props.title}</h1>
+			<TitleContainer lineColor={lineColor}>
+				<h1>{title}</h1>
 			</TitleContainer>
-			<Controllers>{props.children}</Controllers>
+			<Controllers>{children}</Controllers>
 		</Container>
 	);
 };
-
-export default ContentHeader;

@@ -32,7 +32,6 @@ export default createGlobalStyle`
     border: 0;
     outline: 0;
     font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
-
   }
 
   button {
@@ -40,7 +39,7 @@ export default createGlobalStyle`
   }
 
   icon {
-    font-size: 35px
+    font-size: 35px;
   }
 
 `;

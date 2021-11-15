@@ -1,15 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FcComboChart, FcUp, FcDown } from 'react-icons/fc';
 import { MdExitToApp, MdAddchart } from 'react-icons/md';
 
-import {
-	Container,
-	Header,
-	LogImg,
-	Title,
-	MenuContainer,
-	MenuItemLink,
-} from './styles';
+import { Container, Header, LogImg, Title, MenuContainer } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -22,7 +16,32 @@ export const Aside: React.FC = () => {
 			</Header>
 
 			<MenuContainer>
-				<MenuItemLink href='#'>
+				<Link to='/dashboard' className='MenuItemLink'>
+					<FcComboChart />
+					Dashboard
+				</Link>
+
+				<Link to='#' className='MenuItemLink'>
+					<MdAddchart />
+					Adicionar
+				</Link>
+
+				<Link to='/list/entry-balance' className='MenuItemLink'>
+					<FcUp />
+					Entradas
+				</Link>
+
+				<Link to='/list/exit-balance' className='MenuItemLink'>
+					<FcDown />
+					Saídas
+				</Link>
+
+				<Link to='#' className='MenuItemLink'>
+					<MdExitToApp />
+					Sair
+				</Link>
+
+				{/* <MenuItemLink href='/dashboard'>
 					<FcComboChart />
 					Dashboard
 				</MenuItemLink>
@@ -32,12 +51,12 @@ export const Aside: React.FC = () => {
 					Adicionar
 				</MenuItemLink>
 
-				<MenuItemLink href='#'>
+				<MenuItemLink href='/list/entry-balance'>
 					<FcUp />
 					Entradas
 				</MenuItemLink>
 
-				<MenuItemLink href='#'>
+				<MenuItemLink href='/list/exit-balance'>
 					<FcDown />
 					Saídas
 				</MenuItemLink>
@@ -45,10 +64,8 @@ export const Aside: React.FC = () => {
 				<MenuItemLink href='#'>
 					<MdExitToApp />
 					Sair
-				</MenuItemLink>
+				</MenuItemLink> */}
 			</MenuContainer>
 		</Container>
 	);
 };
-
-export default Aside;

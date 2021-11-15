@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Container, ToggleLabel, ToggleSelector } from './styles';
 
-const Toggle: React.FC = () => {
+export const Toggle: React.FC = () => {
 	const [isChecked, setIsChecked] = useState(true);
 
 	return (
@@ -19,4 +19,3 @@ const Toggle: React.FC = () => {
 	);
 };
 
-export default Toggle;

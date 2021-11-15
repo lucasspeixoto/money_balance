@@ -1,24 +1,22 @@
-import React from 'react';
-
+import React, { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Content, Filters } from './styles';
-import ContentHeader from '../../components/ContentHeader';
-import SelectInput from '../../components/SelectInput/';
-import FinanceCardItem, {
+import { ContentHeader } from '../../components/ContentHeader';
+import { SelectInput } from '../../components/SelectInput/';
+import {
+	FinanceCardItem,
 	IFinanceCardItemProps,
 } from '../../components/FinanceCardItem';
 
-interface IMonths {
-	value: number;
-	label: string;
-}
+export const List: React.FC = () => {
+	const { type } = useParams();
+	const titleOptions = useMemo(() => {
+		return type === 'entry-balance'
+			? { title: 'Entradas', lineColor: '#187D5F' }
+			: { title: 'Saídas', lineColor: '#CC2A2C' };
+	}, [type]);
 
-interface IYears {
-	value: number;
-	label: number;
-}
-
-const List: React.FC = () => {
-	const months: IMonths[] = [
+	const months = [
 		{ value: 1, label: 'Janeiro' },
 		{ value: 2, label: 'Fevereiro' },
 		{ value: 3, label: 'Março' },
@@ -33,7 +31,7 @@ const List: React.FC = () => {
 		{ value: 12, label: 'Dezembro' },
 	];
 
-	const years: IYears[] = [
+	const years = [
 		{ value: 2019, label: 2019 },
 		{ value: 2020, label: 2020 },
 		{ value: 2021, label: 2021 },
@@ -77,7 +75,10 @@ const List: React.FC = () => {
 
 	return (
 		<Container>
-			<ContentHeader title='List' lineColor='#CC2A2C'>
+			<ContentHeader
+				title={titleOptions.title}
+				lineColor={titleOptions.lineColor}
+			>
 				<SelectInput options={months} />
 				<SelectInput options={years} />
 			</ContentHeader>
@@ -92,8 +93,9 @@ const List: React.FC = () => {
 			</Filters>
 
 			<Content>
-				{items.map(item => (
+				{items.map((item, index) => (
 					<FinanceCardItem
+						key={index}
 						tagColor={item.tagColor}
 						title={item.title}
 						subtitle={item.subtitle}
@@ -104,5 +106,3 @@ const List: React.FC = () => {
 		</Container>
 	);
 };
-
-export default List;
