@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 interface ITagProps {
 	color: string;
 }
@@ -23,12 +22,10 @@ export const Container = styled.li`
 
 	position: relative;
 
-
-
 	&:hover {
 		opacity: 0.7;
 		transform: translateX(10px);
-    box-shadow: 6px 6px 6px 2px #0F0F0F;
+		box-shadow: 6px 6px 6px 2px #0f0f0f;
 	}
 
 	> div {
@@ -37,13 +34,18 @@ export const Container = styled.li`
 		justify-content: space-between;
 		padding-left: 10px;
 	}
+
+	> div span {
+		font-weight: 500;
+		font-size: 22px;
+	}
 `;
 
 export const Tag = styled.div<ITagProps>`
 	width: 10px;
-	height: 60%;
+	height: 70%;
 	background-color: ${props => props.color};
 	position: absolute;
 	left: 0;
-  border-radius: 10%
+	border-radius: 110px;
 `;

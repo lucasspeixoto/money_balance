@@ -38,6 +38,7 @@ export const Filters = styled.div`
 			display: block;
 			width: 55px;
 			margin: 0 auto;
+			border-radius: 10px;
 		}
 	}
 

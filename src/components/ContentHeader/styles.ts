@@ -21,6 +21,7 @@ export const TitleContainer = styled.div<ITitleContainerProps>`
 			display: block;
 			width: 55px;
 			border-bottom: 10px solid ${props => props.lineColor};
+      border-radius: 10px;
 		}
 	}
 `;
