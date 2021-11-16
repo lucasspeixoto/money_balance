@@ -5,7 +5,7 @@ export const Container = styled.div`
 	justify-content: space-between;
 
 	> select {
-		padding: 7px 10px;
+		padding: 0px 10px 0px 10px;
 		border-radius: 5px;
 		font-size: 18px;
 		margin-left: 5px;
