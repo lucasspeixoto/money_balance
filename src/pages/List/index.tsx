@@ -8,7 +8,11 @@ import { FinanceCardItem } from '../../components/FinanceCardItem';
 import gains from '../../repositories/gains';
 
 import expenses from '../../repositories/expenses';
-import { formatCurrency, formatDate } from '../../utils/generic';
+import {
+	formatCurrency,
+	formatDate,
+	filterByYearAndMonth,
+} from '../../utils/generic';
 
 interface IData {
 	title: string;
@@ -20,6 +24,8 @@ interface IData {
 
 export const List: React.FC = () => {
 	const [data, setData] = useState<IData[]>([]);
+	const [month, setMonth] = useState<string>(String(new Date().getMonth() + 1));
+	const [year, setYear] = useState<string>(String(new Date().getFullYear()));
 
 	const { type } = useParams();
 	const titleOptions = useMemo(() => {
@@ -33,7 +39,10 @@ export const List: React.FC = () => {
 	}, [type]);
 
 	useEffect(() => {
-		const response = listData.map(item => {
+		const filteredItemsByYearAndMonth = listData.filter(item =>
+			filterByYearAndMonth(item.date, year, month),
+		);
+		const response = filteredItemsByYearAndMonth.map(item => {
 			return {
 				title: item.title,
 				amountFormatted: formatCurrency(item.amount),
@@ -43,11 +52,11 @@ export const List: React.FC = () => {
 			};
 		});
 		setData(response);
-	}, [listData]);
+	}, [listData, year, month]);
 
 	const months = [
-		{ value: 1, label: 'Janeiro' },
 		{ value: 2, label: 'Fevereiro' },
+		{ value: 1, label: 'Janeiro' },
 		{ value: 3, label: 'Março' },
 		{ value: 4, label: 'Abril' },
 		{ value: 5, label: 'Maio' },
@@ -81,8 +90,16 @@ export const List: React.FC = () => {
 				title={titleOptions.title}
 				lineColor={titleOptions.lineColor}
 			>
-				<SelectInput options={months} />
-				<SelectInput options={years} />
+				<SelectInput
+					options={months}
+					onChange={event => setMonth(event.target.value)}
+					defaultValue={month}
+				/>
+				<SelectInput
+					options={years}
+					onChange={event => setYear(event.target.value)}
+					defaultValue={year}
+				/>
 			</ContentHeader>
 
 			<Filters>

@@ -37,8 +37,8 @@ export const Dashboard: React.FC = () => {
 	return (
 		<Container>
 			<ContentHeader title='Dashboard' lineColor='#258FB0'>
-				<SelectInput options={months} />
-				<SelectInput options={years} />
+				<SelectInput options={months} onChange={() => {}} />
+				<SelectInput options={years} onChange={() => {}} />
 			</ContentHeader>
 		</Container>
 	);
