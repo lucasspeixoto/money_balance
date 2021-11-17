@@ -15,6 +15,7 @@ export default {
 		info: '#3B5998',
 		warning: '#FF6961',
 
+    balance: '#C97800',
     entries: '#187D5F',
     outflows: '#CC2A2C',
     generic: '#258FB0',

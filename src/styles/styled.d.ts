@@ -17,6 +17,7 @@ declare module 'styled-components' {
 			info: string;
 			warning: string;
 
+      balance: string;
 			entries: string;
 			outflows: string;
 			generic: string;

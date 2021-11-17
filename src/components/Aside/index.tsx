@@ -40,31 +40,6 @@ export const Aside: React.FC = () => {
 					<MdExitToApp />
 					Sair
 				</Link>
-
-				{/* <MenuItemLink href='/dashboard'>
-					<FcComboChart />
-					Dashboard
-				</MenuItemLink>
-
-				<MenuItemLink href='#'>
-					<MdAddchart />
-					Adicionar
-				</MenuItemLink>
-
-				<MenuItemLink href='/list/entry-balance'>
-					<FcUp />
-					Entradas
-				</MenuItemLink>
-
-				<MenuItemLink href='/list/exit-balance'>
-					<FcDown />
-					Saídas
-				</MenuItemLink>
-
-				<MenuItemLink href='#'>
-					<MdExitToApp />
-					Sair
-				</MenuItemLink> */}
 			</MenuContainer>
 		</Container>
 	);
