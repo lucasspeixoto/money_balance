@@ -26,4 +26,21 @@ export default createGlobalStyle`
     font-size: 35px;
   }
 
+  ::-webkit-scrollbar {
+		width: 15px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: ${props => props.theme.colors.secondary};
+		border-radius: 20px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background-color: ${props => props.theme.colors.grey};
+	}
+
+	/* ::-webkit-scrollbar-track {
+		background-color: ${props => props.theme.colors.tertiary};
+	} */
+
 `;

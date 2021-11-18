@@ -9,6 +9,7 @@ import { ContentHeader } from '../../components/ContentHeader';
 import { SelectInput } from '../../components/SelectInput/';
 import { WalletBox } from '../../components/WalletBox';
 import { MessageBox } from '../../components/MessageBox';
+import { BalanceChart } from '../../components/BalanceChart';
 
 // * Repositório
 import gains from '../../repositories/gains';
@@ -28,6 +29,7 @@ import sadImg from '../../assets/sad.svg';
 
 // * Interfaces/Models/Types
 import { IMessageBoxProps } from '../interfaces/IMessageBoxProps.model';
+
 
 export const Dashboard: React.FC = () => {
 	const [month, setMonth] = useState<number>(actualMonth);
@@ -114,6 +116,29 @@ export const Dashboard: React.FC = () => {
 			  };
 	}, [totalBalance]);
 
+	const relationExpensesGains = useMemo(() => {
+		const total = totalGains + totalExpenses;
+		const percentExpenses = 100 * (totalExpenses / total);
+		const percentGains = 100 * (totalGains / total);
+
+		const relations = [
+			{
+				name: 'Entradas',
+				value: totalGains,
+				percent: Number(percentGains.toFixed(1)),
+				color: '#187D5F',
+			},
+			{
+				name: 'Saídas',
+				value: totalExpenses,
+				percent: Number(percentExpenses.toFixed(1)),
+				color: '#CC2A2C',
+			},
+		];
+
+		return relations;
+	}, [totalGains, totalExpenses]);
+
 	const handleSelectedMonth = (month: string) => {
 		try {
 			const parseMonth = Number(month);
@@ -176,6 +201,7 @@ export const Dashboard: React.FC = () => {
 					footerText={message.footerText}
 					icon={message.icon}
 				/>
+				<BalanceChart relations={relationExpensesGains} />
 			</Content>
 		</Container>
 	);
