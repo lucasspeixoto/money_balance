@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 interface ILegendProps {
-  color: string
+	color: string;
 }
 
 export const Container = styled.div`
 	width: 48%;
-	height: 260px;
+	min-height: 260px;
 
 	margin: 10px 0;
 
@@ -19,10 +19,13 @@ export const Container = styled.div`
 `;
 
 export const SideLeft = styled.aside`
+	flex: 1;
+
 	padding: 30px 20px;
 
 	> h2 {
-		margin-bottom: 20px;
+		padding-left: 16px;
+		margin-bottom: 10px;
 	}
 `;
 
@@ -39,6 +42,8 @@ export const Legend = styled.li<ILegendProps>`
 	align-items: center;
 
 	margin-bottom: 7px;
+
+	padding-left: 16px;
 
 	> div {
 		background-color: ${props => props.color};
@@ -59,11 +64,6 @@ export const Legend = styled.li<ILegendProps>`
 `;
 
 export const SideRight = styled.main`
-	display: flex;
 	flex: 1;
-	justify-content: center;
-
-	@media (max-width: 1345px) {
-		height: 100%;
-	}
+	min-height: 150px;
 `;

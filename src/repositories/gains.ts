@@ -2,38 +2,38 @@
 export default [
 	{
 		title: 'Salário Lucas',
-		amount: 6000.0,
+		amount: 2000.0,
 		type: 'entry',
 		frequency: 'recurring',
 		date: '2021-11-10',
 	},
 	{
 		title: 'Salário Liana',
-		amount: 6000.0,
+		amount: 2000.0,
 		type: 'entry',
 		frequency: 'recurring',
 		date: '2021-11-10',
 	},
 	{
 		title: 'Promoção Liana',
-		amount: 30000.0,
+		amount: 1000.0,
 		type: 'entry',
 		frequency: 'eventual',
 		date: '2021-11-10',
 	},
 	{
 		title: 'App Freela',
-		amount: 5000.0,
+		amount: 1000.0,
 		type: 'entry',
 		frequency: 'eventual',
 		date: '2021-11-10',
 	},
 	{
 		title: 'Freela',
-		amount: 150.13,
+		amount: 500.13,
 		type: 'entry',
 		frequency: 'eventual',
-		date: '2021-01-17',
+		date: '2021-10-17',
 	},
 
 	{
@@ -45,10 +45,10 @@ export default [
 	},
 	{
 		title: 'Freela app',
-		amount: 950.92,
+		amount: 650.93,
 		type: 'entry',
 		frequency: 'eventual',
-		date: '2021-02-23',
+		date: '2021-07-23',
 	},
 	{
 		title: 'Salário',
@@ -62,7 +62,7 @@ export default [
 		amount: 2500.18,
 		type: 'entry',
 		frequency: 'recurring',
-		date: '2021-04-10',
+		date: '2021-09-10',
 	},
 	{
 		title: 'Salário',

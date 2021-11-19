@@ -1,6 +1,6 @@
 export const listOfMonths = [
-	'Fevereiro',
 	'Janeiro',
+	'Fevereiro',
 	'Março',
 	'Abril',
 	'Maio',

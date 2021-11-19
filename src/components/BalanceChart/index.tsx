@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 interface IBalanceChartProps {
-	relations: {
+	balance: {
 		name: string;
 		value: number;
 		percent: number;
@@ -18,12 +18,12 @@ interface IBalanceChartProps {
 	}[];
 }
 
-export const BalanceChart: React.FC<IBalanceChartProps> = ({ relations }) => (
+export const BalanceChart: React.FC<IBalanceChartProps> = ({ balance }) => (
 	<Container>
 		<SideLeft>
 			<LegendContainer>
 				<h2>Relação</h2>
-				{relations.map((item, index) => (
+				{balance.map((item, index) => (
 					<Legend key={index} color={item.color}>
 						<div>{item.percent} %</div>
 						<span>{item.name}</span>
@@ -35,8 +35,8 @@ export const BalanceChart: React.FC<IBalanceChartProps> = ({ relations }) => (
 		<SideRight>
 			<ResponsiveContainer>
 				<PieChart>
-					<Pie data={relations} labelLine={false} dataKey='percent'>
-						{relations.map((item, index) => (
+					<Pie data={balance} labelLine={false} dataKey='percent'>
+						{balance.map((item, index) => (
 							<Cell key={index} fill={item.color} />
 						))}
 					</Pie>
