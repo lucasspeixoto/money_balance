@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { Container, LegendContainer, SideLeft, SideRight, Legend } from './styles';
+import {
+	Container,
+	LegendContainer,
+	SideLeft,
+	SideRight,
+	Legend,
+} from './styles';
 
 import { BarChart, Bar, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { formatCurrency } from '../../utils/generic';
@@ -19,7 +25,7 @@ export const TypesChart: React.FC<IBarChartProps> = ({ title, types }) => (
 	<Container>
 		<SideLeft>
 			<h2>{title}</h2>
-      <LegendContainer>
+			<LegendContainer>
 				{types.map((item, index) => (
 					<Legend key={index} color={item.color}>
 						<div>{item.percent} %</div>
@@ -32,7 +38,7 @@ export const TypesChart: React.FC<IBarChartProps> = ({ title, types }) => (
 		<SideRight>
 			<ResponsiveContainer>
 				<BarChart data={types}>
-					<Bar dataKey='amount'>
+					<Bar dataKey='amount' name='Valor'>
 						{types.map((item, index) => (
 							<Cell key={index} cursor='pointer' fill={item.color} />
 						))}

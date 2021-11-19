@@ -12,13 +12,11 @@ export const ContentHeader: React.FC<IContentHeaderProps> = ({
 	lineColor,
 	title,
 	children,
-}) => {
-	return (
-		<Container>
-			<TitleContainer lineColor={lineColor}>
-				<h1>{title}</h1>
-			</TitleContainer>
-			<Controllers>{children}</Controllers>
-		</Container>
-	);
-};
+}) => (
+	<Container>
+		<TitleContainer lineColor={lineColor}>
+			<h1>{title}</h1>
+		</TitleContainer>
+		<Controllers>{children}</Controllers>
+	</Container>
+);

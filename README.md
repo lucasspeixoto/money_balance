@@ -24,6 +24,7 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias/bibliotecas:
 
 - [React](https://reactjs.org)
+- [Context API](https://reactjs.org/docs/context.html)
 - [Styled Components](https://styled-components.com/)
 - [Recharts](https://recharts.org/en-US/)
 - [React Icons](https://react-icons.github.io/react-icons/)
