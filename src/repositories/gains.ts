@@ -7,6 +7,13 @@ export default [
 		frequency: 'recurring',
 		date: '2021-11-10',
 	},
+  {
+		title: 'App Freela',
+		amount: 150.55,
+		type: 'entry',
+		frequency: 'eventual',
+		date: '2021-12-10',
+	},
 	{
 		title: 'Salário Liana',
 		amount: 2000.0,

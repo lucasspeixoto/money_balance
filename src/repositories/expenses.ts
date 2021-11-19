@@ -5,6 +5,13 @@ export default [
 		amount: 150.55,
 		type: 'exit',
 		frequency: 'recurring',
+		date: '2021-12-10',
+	},
+  {
+		title: 'Energia elétrica',
+		amount: 150.55,
+		type: 'exit',
+		frequency: 'recurring',
 		date: '2021-11-10',
 	},
 	{

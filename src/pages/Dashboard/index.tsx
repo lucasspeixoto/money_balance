@@ -28,6 +28,8 @@ import {
 // * Assets
 import happyImg from '../../assets/happy.svg';
 import sadImg from '../../assets/sad.svg';
+import grinningImg from '../../assets/grinning.svg';
+import ueImg from '../../assets/ue.svg';
 
 // * Interfaces/Models/Types
 import { IMessageBoxProps } from '../interfaces/IMessageBoxProps.model';
@@ -100,39 +102,57 @@ export const Dashboard: React.FC = () => {
 	}, []);
 
 	const message: IMessageBoxProps = useMemo(() => {
-		return totalBalance >= 0
-			? {
-					title: 'Muito Bem!',
-					description: 'Seu saldo neste mês esta positivo!',
-					footerText:
-						'Continue assim. Avalie bem como trabalhar com esse dinheiro',
-					icon: happyImg,
-			  }
-			: {
-					title: 'Deu Ruim!',
-					description: 'Seu saldo neste mês esta negativo!',
-					footerText:
-						'Avalia suas despesas para conseguir um saldo positivo no próximo mês',
-					icon: sadImg,
-			  };
-	}, [totalBalance]);
+		if (totalBalance > 0) {
+			return {
+				title: 'Muito Bem!',
+				description: 'Seu saldo neste mês esta positivo!',
+				footerText:
+					'Continue assim. Avalie bem como trabalhar com esse dinheiro',
+				icon: happyImg,
+			};
+		} else if (totalGains === 0 && totalExpenses === 0) {
+			return {
+				title: "Ué!",
+				description: 'Neste mês, não há registros de entradas ou saídas.',
+				footerText:
+					'Parece que você não fez nenhum registro no mês e ano selecionado.',
+				icon: ueImg,
+			};
+		} else if (totalBalance === 0) {
+			return {
+				title: 'Ufaa!',
+				description: 'Neste mês, você gastou exatamente o que ganhou.',
+				footerText: 'Tenha cuidado. No próximo tente poupar o seu dinheiro.',
+				icon: grinningImg,
+			};
+		} else {
+			return {
+				title: 'Deu Ruim!',
+				description: 'Seu saldo neste mês esta negativo!',
+				footerText:
+					'Avalia suas despesas para conseguir um saldo positivo no próximo mês',
+				icon: sadImg,
+			};
+		}
+	}, [totalBalance, totalExpenses, totalGains]);
 
 	const balanceData = useMemo(() => {
 		const total = totalGains + totalExpenses;
-		const percentExpenses = 100 * (totalExpenses / total);
-		const percentGains = 100 * (totalGains / total);
+
+		const percentExpenses = Number(((totalExpenses / total) * 100).toFixed(1));
+		const percentGains = Number(((totalGains / total) * 100).toFixed(1));
 
 		const balance = [
 			{
 				name: 'Entradas',
 				value: totalGains,
-				percent: Number(percentGains.toFixed(1)),
+				percent: percentGains ? percentGains : 0,
 				color: '#187D5F',
 			},
 			{
 				name: 'Saídas',
 				value: totalExpenses,
-				percent: Number(percentExpenses.toFixed(1)),
+				percent: percentExpenses ? percentExpenses : 0,
 				color: '#CC2A2C',
 			},
 		];
@@ -358,7 +378,7 @@ export const Dashboard: React.FC = () => {
 
 				<TypesChart types={expensesTypesData} title='Saídas' />
 
-        <TypesChart types={gainsTypesData} title='Entradas' />
+				<TypesChart types={gainsTypesData} title='Entradas' />
 			</Content>
 		</Container>
 	);
