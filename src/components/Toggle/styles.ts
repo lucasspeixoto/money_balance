@@ -12,10 +12,10 @@ export const ToggleLabel = styled.span`
 
 export const ToggleSelector = styled(Switch).attrs<ReactSwitchProps>(
 	({ theme }) => ({
-		onColor: theme.colors.white,
-		offColor: theme.colors.black,
-    onHandleColor: theme.colors.black,
-    offHandleColor: theme.colors.white,
+		onColor: theme.colors.black,
+		offColor: theme.colors.white,
+    onHandleColor: theme.colors.white,
+    offHandleColor: theme.colors.black,
 	}),
 )<ReactSwitchProps>`
 	margin: 0 7px;

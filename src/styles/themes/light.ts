@@ -8,7 +8,7 @@ export default {
 		tertiary: '#F5F5F5',
 
 		white: '#000',
-		black: '#FFF',
+		black: '#f5f5f5',
 		grey: '#6B6B6B',
 
 		success: '#03BB85',
