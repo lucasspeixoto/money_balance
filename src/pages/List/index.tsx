@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Container, Content, Filters } from './styles';
@@ -14,7 +14,6 @@ import { formatCurrency, formatDate, filterItems } from '../../utils/generic';
 import { listOfMonths } from '../../utils/constants';
 import { actualMonth, actualYear } from '../../utils/generic';
 import { IData } from '../interfaces/IData.model';
-
 
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };
@@ -39,40 +38,43 @@ export const List: React.FC = () => {
 		return type === 'entry-balance' ? gains : expenses;
 	}, [type]);
 
-	const handleSelectedFrequency = (frequency: string) => {
-		const alreadSelected = frequencyFilterSelected.findIndex(
-			item => item === frequency,
-		);
-
-		if (alreadSelected >= 0) {
-			//* Ja existe o filtro, vai remover (manter apenas o outro caso exista)
-			const filtered = frequencyFilterSelected.filter(
-				item => item !== frequency,
+	const handleSelectedFrequency = useCallback(
+		(frequency: string) => {
+			const alreadSelected = frequencyFilterSelected.findIndex(
+				item => item === frequency,
 			);
-			setFrequencyFilterSelected(filtered);
-			//* Ainda não existe o filtro
-		} else {
-			setFrequencyFilterSelected(prev => [...prev, frequency]);
-		}
-	};
 
-	const handleSelectedMonth = (month: string) => {
+			if (alreadSelected >= 0) {
+				//* Ja existe o filtro, vai remover (manter apenas o outro caso exista)
+				const filtered = frequencyFilterSelected.filter(
+					item => item !== frequency,
+				);
+				setFrequencyFilterSelected(filtered);
+				//* Ainda não existe o filtro
+			} else {
+				setFrequencyFilterSelected(prev => [...prev, frequency]);
+			}
+		},
+		[frequencyFilterSelected],
+	);
+
+	const handleSelectedMonth = useCallback((month: string) => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-		} catch (err) {
+		} catch {
 			throw new Error('invalid month value');
 		}
-	};
+	}, []);
 
-	const handleSelectedYear = (year: string) => {
+	const handleSelectedYear = useCallback((year: string) => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-		} catch (err) {
+		} catch {
 			throw new Error('invalid year value');
 		}
-	};
+	}, []);
 
 	useEffect(() => {
 		const filtered = listData.filter(item =>

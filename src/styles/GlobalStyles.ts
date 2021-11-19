@@ -18,6 +18,15 @@ export default createGlobalStyle`
     font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
+  input {
+    width: 100%;
+
+    margin: 7px 0;
+    padding: 10px;
+
+    border-radius: 5px;
+  }
+
   button {
     cursor: pointer;
   }
@@ -38,5 +47,11 @@ export default createGlobalStyle`
 	::-webkit-scrollbar-thumb:hover {
 		background-color: ${props => props.theme.colors.grey};
 	}
+
+  .error-message {
+    font-size: 12px;
+
+	  color: #b45757;
+  }
 
 `;
