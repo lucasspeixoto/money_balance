@@ -1,5 +1,5 @@
 //* React
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 
 //* Styled Components
 import { Container, Content } from './styles';
@@ -305,25 +305,25 @@ export const Dashboard: React.FC = () => {
 		];
 	}, [month, year]);
 
-	const handleSelectedMonth = (month: string) => {
+	const handleSelectedMonth = useCallback((month: string) => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-      localStorage.setItem('month', String(parseMonth));
+			localStorage.setItem('month', String(parseMonth));
 		} catch {
 			throw new Error('invalid month value');
 		}
-	};
+	}, []);
 
-	const handleSelectedYear = (year: string) => {
+	const handleSelectedYear = useCallback((year: string) => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-      localStorage.setItem('year', String(parseYear));
+			localStorage.setItem('year', String(parseYear));
 		} catch {
 			throw new Error('invalid year value');
 		}
-	};
+	}, []);
 
 	return (
 		<Container>
