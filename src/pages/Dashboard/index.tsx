@@ -112,7 +112,7 @@ export const Dashboard: React.FC = () => {
 			};
 		} else if (totalGains === 0 && totalExpenses === 0) {
 			return {
-				title: "Ué!",
+				title: 'Ué!',
 				description: 'Neste mês, não há registros de entradas ou saídas.',
 				footerText:
 					'Parece que você não fez nenhum registro no mês e ano selecionado.',
@@ -309,7 +309,8 @@ export const Dashboard: React.FC = () => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-		} catch (err) {
+      localStorage.setItem('month', String(parseMonth));
+		} catch {
 			throw new Error('invalid month value');
 		}
 	};
@@ -318,7 +319,8 @@ export const Dashboard: React.FC = () => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-		} catch (err) {
+      localStorage.setItem('year', String(parseYear));
+		} catch {
 			throw new Error('invalid year value');
 		}
 	};

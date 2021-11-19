@@ -47,6 +47,10 @@ export const filterItems = (
 
 export const actualDay = new Date().getDate() + 1;
 
-export const actualMonth = new Date().getMonth() + 1;
+export const actualMonth = localStorage.getItem('month')
+	? Number(localStorage.getItem('month'))
+	: new Date().getMonth() + 1;
 
-export const actualYear = new Date().getFullYear();
+export const actualYear = localStorage.getItem('year')
+	? Number(localStorage.getItem('year'))
+	: new Date().getFullYear();
