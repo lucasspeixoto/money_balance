@@ -11,12 +11,12 @@ export const Container = styled.div`
 
 	background-color: ${props => props.theme.colors.primary};
 
-	.link {
-		font-size: 14px;
+  .link {
+		font-size: 18px;
 		color: ${props => props.theme.colors.white};
 		text-decoration: none;
-		margin-left: 20px;
-		margin-top: 10px;
+    margin-left: 80px;
+    margin-top: 10px;
 		display: flex;
 		align-items: center;
 		transition: opacity 0.3s;
@@ -29,13 +29,6 @@ export const Container = styled.div`
 			margin-right: 5px;
 		}
 	}
-`;
-
-export const LinksContainer = styled.div`
-	display: flex;
-	flex: 1;
-	flex-direction: row;
-	justify-content: center;
 
 `;
 
@@ -58,7 +51,7 @@ export const Logo = styled.div`
 
 export const Form = styled.form`
 	width: 300px;
-	height: 410px;
+	height: 450px;
 
 	padding: 15px 30px;
 
@@ -68,7 +61,7 @@ export const Form = styled.form`
 `;
 
 export const FormTitle = styled.h2`
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 
 	color: ${props => props.theme.colors.white};
 

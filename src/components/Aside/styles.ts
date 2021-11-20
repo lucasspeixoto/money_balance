@@ -48,19 +48,3 @@ export const MenuContainer = styled.nav`
 	margin-top: 50px;
 `;
 
-/* export const MenuItemLink = styled.a`
-	font-size: 20px;
-	color: ${props => props.theme.colors.white};
-	text-decoration: none;
-	margin: 10px 0;
-	display: flex;
-	align-items: center;
-	transition: opacity 0.3s;
-	&:hover {
-		opacity: 0.7;
-	}
-	> svg {
-		font-size: 25px;
-		margin-right: 5px;
-	}
-`; */

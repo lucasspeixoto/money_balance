@@ -18,7 +18,6 @@ export default createGlobalStyle`
     font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-
   button {
     cursor: pointer;
   }

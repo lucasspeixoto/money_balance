@@ -3,7 +3,7 @@ import React from 'react';
 import logoImg from '../../assets/logo.svg';
 import { Button } from '../../components/Button';
 
-import { Container, Form, FormTitle, Logo, LinksContainer } from './styles';
+import { Container, Form, FormTitle, Logo } from './styles';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,11 +12,10 @@ import { Messages } from '../../utils/messages';
 import Input from './../../components/Input';
 
 import { Link } from 'react-router-dom';
-import { FiUserPlus, FiKey } from 'react-icons/fi';
+import { GoSignIn } from 'react-icons/go';
 
-interface TLoginForm {
+interface TForgotPasswordForm {
 	email: string;
-	password: string;
 }
 
 const schema = yup
@@ -28,24 +27,19 @@ const schema = yup
 				/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/,
 				Messages.invalidemail,
 			),
-		password: yup
-			.string()
-			.trim()
-			.required(Messages.required)
-			.min(5, Messages.min),
 	})
 	.required();
 
-export const SignIn: React.FC = () => {
+export const ForgotPassword: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isDirty, isValid },
-	} = useForm<TLoginForm>({
+	} = useForm<TForgotPasswordForm>({
 		resolver: yupResolver(schema),
 	});
 
-	const loginHandler = (data: TLoginForm) => {
+	const forgotPasswordHandler = (data: TForgotPasswordForm) => {
 		console.log(isDirty, isValid);
 	};
 
@@ -56,8 +50,8 @@ export const SignIn: React.FC = () => {
 				<h2>Controle Financeiro</h2>
 			</Logo>
 
-			<Form onSubmit={handleSubmit(loginHandler)}>
-				<FormTitle>Entrar</FormTitle>
+			<Form onSubmit={handleSubmit(forgotPasswordHandler)}>
+				<FormTitle>Recuperar Senha</FormTitle>
 
 				<Input
 					{...register('email')}
@@ -69,33 +63,13 @@ export const SignIn: React.FC = () => {
 				{errors.email && (
 					<p className='error-message'>{errors.email?.message}</p>
 				)}
-
-				<Input
-					{...register('password', { required: true })}
-					type='password'
-					id='password'
-					placeholder='Senha'
-					label='Senha'
-				/>
-				{errors.password && (
-					<p className='error-message'>{errors.password?.message}</p>
-				)}
-				<Button background='#258FB0' type='submit'>
-					Entrar
+        <Button background='#258FB0' type='submit'>
+					Recuperar
 				</Button>
-				<Button background='#9e1717' type='button'>
-					Login com o Google
-				</Button>
-				<LinksContainer>
-					<Link to='/registration' className='link'>
-						<FiUserPlus />
-						Cadastro
-					</Link>
-					<Link to='/forgot-password' className='link'>
-						<FiKey />
-						Lembrar Senha
-					</Link>
-				</LinksContainer>
+				<Link to='/' className='link'>
+					<GoSignIn />
+					Login
+				</Link>
 			</Form>
 		</Container>
 	);

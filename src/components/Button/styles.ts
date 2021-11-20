@@ -1,20 +1,40 @@
 import styled from 'styled-components';
 
-export const Container = styled.button`
-	width: 100%;
+interface IButtonProps {
+	background: string;
+}
 
-	margin: 7px 0;
-	padding: 10px;
+export const Container = styled.div<IButtonProps>`
+	margin-top: 15px;
 
-	border-radius: 5px;
+	> button {
+		width: 100%;
 
-	font-weight: bold;
-	color: ${props => props.theme.colors.white};
-	background-color: ${props => props.theme.colors.generic};
+		margin-top: 2px;
+		padding: 10px;
 
-	transition: opacity 0.3s;
+		border-radius: 5px;
 
-	&:hover {
-		opacity: 0.7;
+		font-weight: bold;
+		color: ${props => props.theme.colors.white};
+		background-color: ${props => props.background};
+
+		transition: filter 0.2s;
+
+		cursor: pointer;
+		border: 0;
+
+		&:hover {
+			opacity: 0.7;
+		}
+
+		&:not(:disabled):hover {
+			filter: brightness(0.9);
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
+		}
 	}
 `;
