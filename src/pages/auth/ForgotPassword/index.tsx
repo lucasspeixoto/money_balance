@@ -12,7 +12,6 @@ import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
 
 import { Link } from 'react-router-dom';
-import { GoSignIn } from 'react-icons/go';
 
 interface TForgotPasswordForm {
 	email: string;
@@ -64,10 +63,11 @@ export const ForgotPassword: React.FC = () => {
 					<p className='error-message'>{errors.email?.message}</p>
 				)}
 				<Button background='#258FB0' type='submit' label='Recuperar'></Button>
-				<Link to='/' className='link'>
-					<GoSignIn />
-					Login
-				</Link>
+				<p className='registration'>
+					<Link to='/' className='link'>
+						Login
+					</Link>
+				</p>
 			</Form>
 		</Container>
 	);

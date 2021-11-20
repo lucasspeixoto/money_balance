@@ -10,33 +10,6 @@ export const Container = styled.div`
 	align-items: center;
 
 	background-color: ${props => props.theme.colors.primary};
-
-	.link {
-		font-size: 14px;
-		color: ${props => props.theme.colors.white};
-		text-decoration: none;
-		margin-left: 20px;
-		margin-top: 10px;
-		display: flex;
-		align-items: center;
-		transition: opacity 0.3s;
-
-		&:hover {
-			opacity: 0.7;
-		}
-		> svg {
-			font-size: 25px;
-			margin-right: 5px;
-		}
-	}
-`;
-
-export const LinksContainer = styled.div`
-	display: flex;
-	flex: 1;
-	flex-direction: row;
-	justify-content: center;
-
 `;
 
 export const Logo = styled.div`
@@ -57,14 +30,33 @@ export const Logo = styled.div`
 `;
 
 export const Form = styled.form`
-	width: 300px;
-	height: 410px;
+	width: 340px;
+	height: 430px;
 
 	padding: 15px 30px;
 
 	border-radius: 10px;
 
 	background-color: ${props => props.theme.colors.tertiary};
+
+  > .registration {
+    margin: 15px 10px 0px 20px;
+    color: ${props => props.theme.colors.white};
+  }
+
+  > span {
+    margin: 250px 0px 10px 80px;
+  }
+
+	.link {
+		font-size: 14px;
+		color: ${props => props.theme.colors.generic};
+    font-weight: bold;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
 `;
 
 export const FormTitle = styled.h2`

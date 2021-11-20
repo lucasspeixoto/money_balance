@@ -11,7 +11,6 @@ import * as yup from 'yup';
 import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
 import { Link } from 'react-router-dom';
-import { GoSignIn } from 'react-icons/go';
 
 interface TRegistrationForm {
 	name: string;
@@ -91,10 +90,11 @@ export const Registration: React.FC = () => {
 					<p className='error-message'>{errors.password?.message}</p>
 				)}
 				<Button background='#258FB0' type='submit' label='Entrar'></Button>
-				<Link to='/' className='link'>
-					<GoSignIn />
-					Login
-				</Link>
+				<p className='registration'>
+					<Link to='/' className='link'>
+						Login
+					</Link>
+				</p>
 			</Form>
 		</Container>
 	);

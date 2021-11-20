@@ -3,7 +3,7 @@ import React from 'react';
 import logoImg from '../../../assets/logo.svg';
 import { Button } from '../../../components/Button';
 
-import { Container, Form, FormTitle, Logo, LinksContainer } from './styles';
+import { Container, Form, FormTitle, Logo } from './styles';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +12,6 @@ import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
 
 import { Link } from 'react-router-dom';
-import { FiUserPlus, FiKey } from 'react-icons/fi';
 
 interface TLoginForm {
 	email: string;
@@ -86,16 +85,18 @@ export const SignIn: React.FC = () => {
 					type='button'
 					label='Login com o Google'
 				></Button>
-				<LinksContainer>
+
+				<p className='registration'>
+					Não está cadastrado ?{' '}
 					<Link to='/registration' className='link'>
-						<FiUserPlus />
-						Cadastro
+						Clique aqui!
 					</Link>
+				</p>
+				<span className='forgot'>
 					<Link to='/forgot-password' className='link'>
-						<FiKey />
-						Lembrar Senha
+						Esquece a senha?
 					</Link>
-				</LinksContainer>
+				</span>
 			</Form>
 		</Container>
 	);
