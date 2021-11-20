@@ -3,17 +3,17 @@ import { useParams } from 'react-router-dom';
 
 import { Container, Content, Filters } from './styles';
 
-import { ContentHeader } from '../../components/ContentHeader';
-import { SelectInput } from '../../components/SelectInput/';
-import { FinanceCardItem } from '../../components/FinanceCardItem';
+import { ContentHeader } from '../../../components/ContentHeader';
+import { SelectInput } from '../../../components/SelectInput';
+import { FinanceCardItem } from '../../../components/FinanceCardItem';
 
-import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+import gains from '../../../repositories/gains';
+import expenses from '../../../repositories/expenses';
 
-import { formatCurrency, formatDate, filterItems } from '../../utils/generic';
-import { listOfMonths } from '../../utils/constants';
-import { actualMonth, actualYear } from '../../utils/generic';
-import { IData } from '../interfaces/IData.model';
+import { formatCurrency, formatDate, filterItems } from '../../../utils/generic';
+import { listOfMonths } from '../../../utils/constants';
+import { actualMonth, actualYear } from '../../../utils/generic';
+import { IData } from '../../interfaces/IData.model';
 
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };

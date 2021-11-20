@@ -1,15 +1,15 @@
 import React from 'react';
 
-import logoImg from '../../assets/logo.svg';
-import { Button } from '../../components/Button';
+import logoImg from '../../../assets/logo.svg';
+import { Button } from '../../../components/Button';
 
 import { Container, Form, FormTitle, Logo } from './styles';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Messages } from '../../utils/messages';
-import Input from './../../components/Input';
+import { Messages } from '../../../utils/messages';
+import Input from '../../../components/Input';
 
 import { Link } from 'react-router-dom';
 import { GoSignIn } from 'react-icons/go';
@@ -63,9 +63,7 @@ export const ForgotPassword: React.FC = () => {
 				{errors.email && (
 					<p className='error-message'>{errors.email?.message}</p>
 				)}
-        <Button background='#258FB0' type='submit'>
-					Recuperar
-				</Button>
+				<Button background='#258FB0' type='submit' label='Recuperar'></Button>
 				<Link to='/' className='link'>
 					<GoSignIn />
 					Login

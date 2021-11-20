@@ -1,27 +1,26 @@
 import React from 'react';
 
-import logoImg from '../../assets/logo.svg';
-import { Button } from '../../components/Button';
+import logoImg from '../../../assets/logo.svg';
+import { Button } from '../../../components/Button';
 
-import { Container, Form, FormTitle, Logo } from './styles';
+import { Container, Form, FormTitle, Logo, LinksContainer } from './styles';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Messages } from '../../utils/messages';
-import Input from './../../components/Input';
-import { Link } from 'react-router-dom';
-import { GoSignIn } from 'react-icons/go';
+import { Messages } from '../../../utils/messages';
+import Input from '../../../components/Input';
 
-interface TRegistrationForm {
-	name: string;
+import { Link } from 'react-router-dom';
+import { FiUserPlus, FiKey } from 'react-icons/fi';
+
+interface TLoginForm {
 	email: string;
 	password: string;
 }
 
 const schema = yup
 	.object({
-		name: yup.string().trim().required(Messages.required).min(5, Messages.min),
 		email: yup
 			.string()
 			.required(Messages.required)
@@ -37,16 +36,16 @@ const schema = yup
 	})
 	.required();
 
-export const Registration: React.FC = () => {
+export const SignIn: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isDirty, isValid },
-	} = useForm<TRegistrationForm>({
+	} = useForm<TLoginForm>({
 		resolver: yupResolver(schema),
 	});
 
-	const registrationHandler = (data: TRegistrationForm) => {
+	const loginHandler = (data: TLoginForm) => {
 		console.log(isDirty, isValid);
 	};
 
@@ -57,19 +56,8 @@ export const Registration: React.FC = () => {
 				<h2>Controle Financeiro</h2>
 			</Logo>
 
-			<Form onSubmit={handleSubmit(registrationHandler)}>
-				<FormTitle>Cadastro</FormTitle>
-
-        <Input
-					{...register('name')}
-					type='text'
-					id='name'
-					placeholder='Nome de Usuário'
-					label='Nome de Usuário'
-				/>
-				{errors.name && (
-					<p className='error-message'>{errors.name?.message}</p>
-				)}
+			<Form onSubmit={handleSubmit(loginHandler)}>
+				<FormTitle>Entrar</FormTitle>
 
 				<Input
 					{...register('email')}
@@ -92,13 +80,22 @@ export const Registration: React.FC = () => {
 				{errors.password && (
 					<p className='error-message'>{errors.password?.message}</p>
 				)}
-				<Button background='#258FB0' type='submit'>
-					Entrar
-				</Button>
-        <Link to='/' className='link'>
-					<GoSignIn />
-					Login
-				</Link>
+				<Button background='#258FB0' type='submit' label='Entrar'></Button>
+				<Button
+					background='#9e1717'
+					type='button'
+					label='Login com o Google'
+				></Button>
+				<LinksContainer>
+					<Link to='/registration' className='link'>
+						<FiUserPlus />
+						Cadastro
+					</Link>
+					<Link to='/forgot-password' className='link'>
+						<FiKey />
+						Lembrar Senha
+					</Link>
+				</LinksContainer>
 			</Form>
 		</Container>
 	);

@@ -5,34 +5,34 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Container, Content } from './styles';
 
 // * Componentes
-import { ContentHeader } from '../../components/ContentHeader';
-import { SelectInput } from '../../components/SelectInput/';
-import { WalletBox } from '../../components/WalletBox';
-import { MessageBox } from '../../components/MessageBox';
-import { BalanceChart } from '../../components/BalanceChart';
-import { HistoryChart } from '../../components/HistoryChart';
-import { TypesChart } from '../../components/TypesChart';
+import { ContentHeader } from '../../../components/ContentHeader';
+import { SelectInput } from '../../../components/SelectInput';
+import { WalletBox } from '../../../components/WalletBox';
+import { MessageBox } from '../../../components/MessageBox';
+import { BalanceChart } from '../../../components/BalanceChart';
+import { HistoryChart } from '../../../components/HistoryChart';
+import { TypesChart } from '../../../components/TypesChart';
 
 // * Repositório
-import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+import gains from '../../../repositories/gains';
+import expenses from '../../../repositories/expenses';
 
 //* Utils
-import { listOfMonths } from '../../utils/constants';
+import { listOfMonths } from '../../../utils/constants';
 import {
 	actualMonth,
 	actualYear,
 	getDayMonthAndYearByDate,
-} from '../../utils/generic';
+} from '../../../utils/generic';
 
 // * Assets
-import happyImg from '../../assets/happy.svg';
-import sadImg from '../../assets/sad.svg';
-import grinningImg from '../../assets/grinning.svg';
-import ueImg from '../../assets/ue.svg';
+import happyImg from '../../../assets/happy.svg';
+import sadImg from '../../../assets/sad.svg';
+import grinningImg from '../../../assets/grinning.svg';
+import ueImg from '../../../assets/ue.svg';
 
 // * Interfaces/Models/Types
-import { IMessageBoxProps } from '../interfaces/IMessageBoxProps.model';
+import { IMessageBoxProps } from '../../interfaces/IMessageBoxProps.model';
 
 export const Dashboard: React.FC = () => {
 	const [month, setMonth] = useState<number>(actualMonth);

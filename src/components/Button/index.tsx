@@ -4,16 +4,18 @@ import { Container } from './styles';
 
 type IButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	isOutlined?: boolean;
-  background: string
+  background: string;
+  label: string
 };
 
 export const Button: React.FC<IButtonProps> = ({
 	isOutlined = false,
 	background,
   children,
+  label,
 	...rest
 }) => (
 	<Container background={background}>
-		<button {...rest}>{children}</button>
+		<button {...rest}>{label}</button>
 	</Container>
 );

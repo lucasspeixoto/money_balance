@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { Dashboard } from '../pages/Dashboard';
-import { List } from '../pages/List';
+import { Dashboard } from '../pages/dashboards/Dashboard';
+import { List } from '../pages/lists/List';
 
 export const App: React.FC = () => (
 	<Layout>
