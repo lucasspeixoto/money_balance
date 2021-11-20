@@ -1,9 +1,9 @@
-import React, { createContext, useState, useContext, useMemo } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 
 import dark from '../styles/themes/dark';
 import light from '../styles/themes/light';
 
-interface IThemeContext {
+export interface IThemeContext {
 	toggleTheme(): void;
 	theme: ITheme;
 }
@@ -33,7 +33,7 @@ interface ITheme {
 	};
 }
 
-const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
+export const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 export const ThemeProvider: React.FC = ({ children }) => {
 	const lastSelectedTheme = useMemo(() => {
@@ -60,9 +60,3 @@ export const ThemeProvider: React.FC = ({ children }) => {
 		</ThemeContext.Provider>
 	);
 };
-
-export function useTheme(): IThemeContext {
-	const context = useContext(ThemeContext);
-
-	return context;
-}

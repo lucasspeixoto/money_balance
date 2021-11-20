@@ -3,7 +3,7 @@ import { Toggle } from '../Toggle';
 import emojis from '../../utils/emojis';
 
 import { Container, Profile, Welcome, UserName } from './styles';
-import { useTheme } from '../../hooks/theme';
+import { useTheme } from '../../hooks/useTheme';
 
 export const MainHeader: React.FC = () => {
 	const { toggleTheme, theme } = useTheme();

@@ -18,14 +18,6 @@ export default createGlobalStyle`
     font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  input {
-    width: 100%;
-
-    margin: 7px 0;
-    padding: 10px;
-
-    border-radius: 5px;
-  }
 
   button {
     cursor: pointer;
@@ -50,8 +42,9 @@ export default createGlobalStyle`
 
   .error-message {
     font-size: 12px;
+    font-weight: bold;
 
-	  color: #b45757;
+	  color: #d75757;
   }
 
 `;

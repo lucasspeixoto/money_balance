@@ -2,7 +2,7 @@ import React from 'react';
 
 import logoImg from '../../assets/logo.svg';
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+
 
 import { Container, Form, FormTitle, Logo } from './styles';
 
@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Messages } from '../../utils/messages';
+import Input from './../../components/Input';
 
 interface TLoginForm {
 	email: string;
@@ -37,13 +38,13 @@ export const SignIn: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isDirty, isValid },
 	} = useForm<TLoginForm>({
 		resolver: yupResolver(schema),
 	});
 
 	const loginHandler = (data: TLoginForm) => {
-		console.log(data);
+    console.log('here')
 	};
 
 	return (
@@ -61,6 +62,7 @@ export const SignIn: React.FC = () => {
 					type='text'
 					id='email'
 					placeholder='E-mail'
+          label="E-mail"
 				/>
 				{errors.email && (
 					<p className='error-message'>{errors.email?.message}</p>
@@ -71,6 +73,7 @@ export const SignIn: React.FC = () => {
 					type='password'
 					id='password'
 					placeholder='Senha'
+          label="Senha"
 				/>
 				{errors.password && (
 					<p className='error-message'>{errors.password?.message}</p>

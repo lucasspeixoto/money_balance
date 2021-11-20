@@ -1,10 +1,23 @@
-import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react';
+import React, { ForwardRefRenderFunction, InputHTMLAttributes } from 'react';
 
-type InputProps = DetailedHTMLProps<
-	InputHTMLAttributes<HTMLInputElement>,
-	HTMLInputElement
->;
+import { Container } from './styles';
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
-	<input ref={ref} {...props} />
-));
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+	name: string;
+	label: string;
+	ref: string;
+}
+
+const InputField: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+	{ name, label, ...rest },
+	ref,
+) => (
+	<Container>
+		<label htmlFor={name}>{label}</label>
+		<input {...rest} name={name} ref={ref} />
+	</Container>
+);
+
+const Input = React.forwardRef(InputField);
+
+export default Input;

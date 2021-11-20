@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/GlobalStyles';
 
 import { Routes } from './routes';
-import { useTheme } from './hooks/theme';
+import { useTheme } from './hooks/useTheme';
 
 export const App: React.FC = () => {
 

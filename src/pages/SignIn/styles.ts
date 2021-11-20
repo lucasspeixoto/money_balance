@@ -31,9 +31,9 @@ export const Logo = styled.div`
 
 export const Form = styled.form`
 	width: 300px;
-	height: 300px;
+	height: 310px;
 
-	padding: 30px;
+	padding: 15px 30px;
 
 	border-radius: 10px;
 
@@ -41,7 +41,7 @@ export const Form = styled.form`
 `;
 
 export const FormTitle = styled.h2`
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
 	color: ${props => props.theme.colors.white};
 
