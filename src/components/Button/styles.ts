@@ -15,7 +15,9 @@ export const Container = styled.div<IButtonProps>`
 
 		border-radius: 5px;
 
+    font-size: 16px;
 		font-weight: bold;
+
 		color: ${props => props.theme.colors.white};
 		background-color: ${props => props.background};
 

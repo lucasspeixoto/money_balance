@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logoImg from '../../../assets/logo.svg';
 import { Button } from '../../../components/Button';
@@ -12,11 +12,17 @@ import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
+import { ILoginData } from '../../interfaces/ILogin.model';
+import { Error } from '../../../utils/errors.messages';
+import toast, { Toaster } from 'react-hot-toast';
 
-interface TLoginForm {
-	email: string;
-	password: string;
-}
+type ErrorMessage = {
+	code: string;
+	message: string;
+	a?: any;
+};
 
 const schema = yup
 	.object({
@@ -39,23 +45,55 @@ export const SignIn: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isValid },
-	} = useForm<TLoginForm>({
+		formState: { errors },
+	} = useForm<ILoginData>({
 		resolver: yupResolver(schema),
 	});
 
-	const loginHandler = (data: TLoginForm) => {
-		console.log(isDirty, isValid);
-	};
+	const navigate = useNavigate();
+	const { user, signInWithGoogle, signInWithEmailAndPassword } = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
+
+	function loginWithEmailAndPassword(data: ILoginData) {
+		setIsLoading(true);
+		const { email, password } = data;
+		const result = signInWithEmailAndPassword(email, password);
+
+		result
+			.then(value => {
+				if (value.user) {
+					navigate('/dashboard');
+					setIsLoading(false);
+				}
+			})
+			.catch((error: ErrorMessage) => {
+				setIsLoading(false);
+				const code: string = error.code;
+				toast.error(Error[code], {
+					style: { background: '#258FB0', color: '#fff' },
+					duration: 2000,
+				});
+			});
+	}
+
+	function loginWithGoogle() {
+		setIsLoading(true);
+		if (!user) {
+			signInWithGoogle();
+			navigate('/dashboard');
+			setIsLoading(false);
+		}
+	}
 
 	return (
 		<Container>
+			<Toaster position='top-center' reverseOrder={false} />
 			<Logo>
 				<img src={logoImg} alt='Controle Financeiro' />
 				<h2>Controle Financeiro</h2>
 			</Logo>
 
-			<Form onSubmit={handleSubmit(loginHandler)}>
+			<Form onSubmit={handleSubmit(loginWithEmailAndPassword)}>
 				<FormTitle>Entrar</FormTitle>
 
 				<Input
@@ -79,8 +117,15 @@ export const SignIn: React.FC = () => {
 				{errors.password && (
 					<p className='error-message'>{errors.password?.message}</p>
 				)}
-				<Button background='#258FB0' type='submit' label='Entrar'></Button>
 				<Button
+					disabled={isLoading}
+					background='#258FB0'
+					type='submit'
+					label='Entrar'
+				></Button>
+				<Button
+					disabled={isLoading}
+					onClick={loginWithGoogle}
 					background='#9e1717'
 					type='button'
 					label='Login com o Google'

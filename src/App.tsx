@@ -6,8 +6,7 @@ import { Routes } from './routes';
 import { useTheme } from './hooks/useTheme';
 
 export const App: React.FC = () => {
-
-  const {theme} = useTheme()
+	const { theme } = useTheme();
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logoImg from '../../../assets/logo.svg';
 import { Button } from '../../../components/Button';
@@ -10,13 +10,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
-import { Link } from 'react-router-dom';
-
-interface TRegistrationForm {
-	name: string;
-	email: string;
-	password: string;
-}
+import { Link, useNavigate } from 'react-router-dom';
+import { IRegistrationForm } from '../../interfaces/IRegistration.model';
+import { useAuth } from '../../../hooks/useAuth';
 
 const schema = yup
 	.object({
@@ -37,17 +33,26 @@ const schema = yup
 	.required();
 
 export const Registration: React.FC = () => {
+	const { isLogged, createUserWithEmailAndPassword } = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isValid },
-	} = useForm<TRegistrationForm>({
+		formState: { errors },
+	} = useForm<IRegistrationForm>({
 		resolver: yupResolver(schema),
 	});
 
-	const registrationHandler = (data: TRegistrationForm) => {
-		console.log(isDirty, isValid);
-	};
+	function registrationHandler(data: IRegistrationForm) {
+    const {name, email, password} = data
+		setIsLoading(true);
+		createUserWithEmailAndPassword(name, email, password);
+		if (isLogged) {
+			navigate('/dashboard');
+			setIsLoading(false);
+		}
+	}
 
 	return (
 		<Container>
@@ -89,7 +94,12 @@ export const Registration: React.FC = () => {
 				{errors.password && (
 					<p className='error-message'>{errors.password?.message}</p>
 				)}
-				<Button background='#258FB0' type='submit' label='Entrar'></Button>
+				<Button
+					disabled={isLoading}
+					background='#258FB0'
+					type='submit'
+					label='Entrar'
+				></Button>
 				<p className='registration'>
 					<Link to='/' className='link'>
 						Login

@@ -6,8 +6,11 @@ import { MdExitToApp, MdAddchart } from 'react-icons/md';
 import { Container, Header, LogImg, Title, MenuContainer } from './styles';
 
 import logoImg from '../../assets/logo.svg';
+import { useAuth } from '../../hooks/useAuth';
 
 export const Aside: React.FC = () => {
+	const { logout } = useAuth();
+
 	return (
 		<Container>
 			<Header>
@@ -36,10 +39,11 @@ export const Aside: React.FC = () => {
 					Saídas
 				</Link>
 
-				<Link to='#' className='MenuItemLink'>
+				<Link to='/' onClick={() => logout()} className='MenuItemLink'>
 					<MdExitToApp />
 					Sair
 				</Link>
+
 			</MenuContainer>
 		</Container>
 	);

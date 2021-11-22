@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Toggle } from '../Toggle';
-import emojis from '../../utils/emojis';
 
 import { Container, Profile, Welcome, UserName } from './styles';
 import { useTheme } from '../../hooks/useTheme';
+import { useAuth } from '../../hooks/useAuth';
 
 export const MainHeader: React.FC = () => {
 	const { toggleTheme, theme } = useTheme();
@@ -11,14 +11,12 @@ export const MainHeader: React.FC = () => {
 		theme.title === 'dark' ? true : false,
 	);
 
+	const { user } = useAuth();
+
 	const handleChangeTheme = () => {
 		setDarkTheme(!darkTheme);
 		toggleTheme();
 	};
-	const emoji = useMemo(() => {
-		const index = Math.floor(Math.random() * emojis.length);
-		return emojis[index];
-	}, []);
 
 	return (
 		<Container>
@@ -29,8 +27,9 @@ export const MainHeader: React.FC = () => {
 				onChange={handleChangeTheme}
 			/>
 			<Profile>
-				<Welcome>Olá, {emoji} </Welcome>
-				<UserName>Lucas Peixoto</UserName>
+				<Welcome>
+					Olá, <UserName>{user?.name}</UserName>{' '}
+				</Welcome>
 			</Profile>
 		</Container>
 	);

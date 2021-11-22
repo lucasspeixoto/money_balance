@@ -31,8 +31,8 @@ export const Logo = styled.div`
 `;
 
 export const Form = styled.form`
-	width: 300px;
-	height: 250px;
+	width: 360px;
+	height: 270px;
 
 	padding: 15px 30px;
 
@@ -41,7 +41,7 @@ export const Form = styled.form`
 	background-color: ${props => props.theme.colors.tertiary};
 
   > .registration {
-		margin: 15px 10px 0px 100px;
+		margin: 15px 10px 0px 130px;
 		color: ${props => props.theme.colors.white};
 	}
 
