@@ -19,7 +19,7 @@ export const Aside: React.FC = () => {
 			</Header>
 
 			<MenuContainer>
-				<Link to='/dashboard' className='MenuItemLink'>
+				<Link to='/' className='MenuItemLink'>
 					<FcComboChart />
 					Dashboard
 				</Link>

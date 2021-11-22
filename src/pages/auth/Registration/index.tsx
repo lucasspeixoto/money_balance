@@ -36,6 +36,7 @@ export const Registration: React.FC = () => {
 	const { isLogged, createUserWithEmailAndPassword } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
@@ -45,13 +46,12 @@ export const Registration: React.FC = () => {
 	});
 
 	function registrationHandler(data: IRegistrationForm) {
-    const {name, email, password} = data
+		const { name, email, password } = data;
 		setIsLoading(true);
 		createUserWithEmailAndPassword(name, email, password);
-		if (isLogged) {
-			navigate('/dashboard');
-			setIsLoading(false);
-		}
+
+		setIsLoading(false);
+		navigate('/');
 	}
 
 	return (

@@ -10,7 +10,11 @@ import { FinanceCardItem } from '../../../components/FinanceCardItem';
 import gains from '../../../repositories/gains';
 import expenses from '../../../repositories/expenses';
 
-import { formatCurrency, formatDate, filterItems } from '../../../utils/generic';
+import {
+	formatCurrency,
+	formatDate,
+	filterItems,
+} from '../../../utils/generic';
 import { listOfMonths } from '../../../utils/constants';
 import { actualMonth, actualYear } from '../../../utils/generic';
 import { IData } from '../../interfaces/IData.model';
@@ -18,6 +22,7 @@ import { IData } from '../../interfaces/IData.model';
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };
 const exitData = { title: 'Saídas', lineColor: '#CC2A2C' };
+
 
 export const List: React.FC = () => {
 	const [data, setData] = useState<IData[]>([]);

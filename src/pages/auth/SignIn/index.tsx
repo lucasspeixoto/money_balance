@@ -12,17 +12,12 @@ import { Messages } from '../../../utils/messages';
 import Input from '../../../components/Input';
 
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../../hooks/useAuth';
 import { ILoginData } from '../../interfaces/ILogin.model';
 import { Error } from '../../../utils/errors.messages';
 import toast, { Toaster } from 'react-hot-toast';
 
-type ErrorMessage = {
-	code: string;
-	message: string;
-	a?: any;
-};
 
 const schema = yup
 	.object({
@@ -50,7 +45,6 @@ export const SignIn: React.FC = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const navigate = useNavigate();
 	const { user, signInWithGoogle, signInWithEmailAndPassword } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -62,11 +56,10 @@ export const SignIn: React.FC = () => {
 		result
 			.then(value => {
 				if (value.user) {
-					navigate('/dashboard');
 					setIsLoading(false);
 				}
 			})
-			.catch((error: ErrorMessage) => {
+			.catch((error) => {
 				setIsLoading(false);
 				const code: string = error.code;
 				toast.error(Error[code], {
@@ -80,7 +73,6 @@ export const SignIn: React.FC = () => {
 		setIsLoading(true);
 		if (!user) {
 			signInWithGoogle();
-			navigate('/dashboard');
 			setIsLoading(false);
 		}
 	}

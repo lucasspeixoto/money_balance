@@ -5,6 +5,7 @@ import { auth as fireauth, firebase, firestore } from '../services/firebase';
 
 type AuthContextType = {
 	isLogged: boolean;
+	isLoading: boolean;
 	user: User | undefined;
 	signInWithGoogle: () => Promise<void>;
 	signInWithEmailAndPassword: (
@@ -25,6 +26,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export const AuthContextProvider: React.FC = ({ children }) => {
 	const [user, setUser] = useState<User>();
 	const [isLogged, setIsLogged] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	async function setUserData(uid: string) {
 		const result = firestore.collection('users');
@@ -36,22 +38,27 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 			if (loggedUser.id === uid) {
 				setUser(loggedUser);
 				setIsLogged(true);
+				setIsLoading(false);
 			}
 		});
 	}
 
 	//* Observar se houve alteração no estado de autenticação do usuário
 	useEffect(() => {
-		const unsubscribe = fireauth.onAuthStateChanged(user => {
-			if (user) {
-				const { uid } = user;
+		setIsLoading(true);
+		const unsubscribe = fireauth.onAuthStateChanged(loggedUser => {
+			if (loggedUser) {
+				const { uid } = loggedUser;
 				setUserData(uid);
+			}
+			else {
+				setIsLoading(false);
 			}
 		});
 		return () => {
 			unsubscribe();
 		};
-	}, []);
+	}, [isLogged]);
 
 	async function registerUser(loggedUser: User) {
 		if (loggedUser) {
@@ -63,6 +70,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 	}
 
 	async function signInWithGoogle() {
+
 		const provider = new firebase.auth.GoogleAuthProvider();
 
 		const result = await fireauth.signInWithPopup(provider);
@@ -84,6 +92,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 	}
 
 	async function signInWithEmailAndPassword(email: string, password: string) {
+    setIsLoading(true);
 		const result = await fireauth.signInWithEmailAndPassword(email, password);
 		return result;
 	}
@@ -93,6 +102,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 		email: string,
 		password: string,
 	) {
+    setIsLoading(true);
 		const result = await fireauth.createUserWithEmailAndPassword(
 			email,
 			password,
@@ -129,6 +139,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 		<AuthContext.Provider
 			value={{
 				isLogged,
+				isLoading,
 				user,
 				signInWithGoogle,
 				signInWithEmailAndPassword,
