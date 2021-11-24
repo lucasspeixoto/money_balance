@@ -33,7 +33,7 @@ const schema = yup
 	.required();
 
 export const Registration: React.FC = () => {
-	const { isLogged, createUserWithEmailAndPassword } = useAuth();
+	const { createUserWithEmailAndPassword } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
 

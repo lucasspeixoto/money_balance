@@ -20,12 +20,7 @@ export const MainHeader: React.FC = () => {
 
 	return (
 		<Container>
-			<Toggle
-				labelLeft='Claro'
-				labelRight='Escuro'
-				checked={darkTheme}
-				onChange={handleChangeTheme}
-			/>
+			<Toggle checked={darkTheme} onChange={handleChangeTheme} />
 			<Profile>
 				<Welcome>
 					Olá, <UserName>{user?.name}</UserName>{' '}

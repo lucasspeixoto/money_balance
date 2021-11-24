@@ -10,7 +10,7 @@ export const Filters = styled.div`
 	display: flex;
 	justify-content: center;
 
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 
 	.tag-filter {
 		font-size: 18px;
@@ -47,5 +47,9 @@ export const Filters = styled.div`
 
 	.tag-actived {
 		opacity: 1;
+	}
+
+  @media (max-width: 380px) {
+		padding-top: 20px;
 	}
 `;

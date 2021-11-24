@@ -10,6 +10,11 @@ export const Container = styled.div`
 	align-items: center;
 
 	background-color: ${props => props.theme.colors.primary};
+
+  @media (max-width: 380px) {
+		width: 98%;
+    height: auto;
+	}
 `;
 
 export const Logo = styled.div`

@@ -67,6 +67,7 @@ export const List: React.FC = () => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
+      localStorage.setItem('month', String(parseMonth));
 		} catch {
 			throw new Error('invalid month value');
 		}
@@ -76,6 +77,7 @@ export const List: React.FC = () => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
+      localStorage.setItem('year', String(parseYear));
 		} catch {
 			throw new Error('invalid year value');
 		}
