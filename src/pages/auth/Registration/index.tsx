@@ -8,7 +8,9 @@ import { Container, Form, FormTitle, Logo } from './styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+
 import { Messages } from '../../../utils/messages';
+
 import Input from '../../../components/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import { IRegistrationForm } from '../../interfaces/IRegistration.model';

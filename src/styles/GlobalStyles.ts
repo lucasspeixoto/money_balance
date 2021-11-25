@@ -48,4 +48,28 @@ export default createGlobalStyle`
 	  color: #d75757;
   }
 
+  .form-field {
+    font-size: 15px;
+
+    width: 100%;
+
+    margin: 5px 0;
+
+    padding: 10px;
+
+    border-radius: 5px;
+
+    border: 3px solid ${props => props.theme.colors.white};
+
+    &:hover {
+      opacity: 0.9;
+      border: 2px solid ${props => props.theme.colors.generic};
+    }
+  }
+
+  textarea {
+	  font-size: 5.5rem;
+	  resize: none;
+}
+
 `;
