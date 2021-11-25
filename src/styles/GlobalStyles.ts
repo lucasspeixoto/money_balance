@@ -63,9 +63,10 @@ export default createGlobalStyle`
 
     &:hover {
       opacity: 0.9;
-      border: 2px solid ${props => props.theme.colors.generic};
+      border: 3px solid ${props => props.theme.colors.generic};
     }
   }
+
 
   textarea {
 	  font-size: 5.5rem;

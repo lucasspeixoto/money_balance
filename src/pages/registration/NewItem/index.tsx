@@ -19,6 +19,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Messages } from '../../../utils/messages';
 import { Button } from '../../../components/Button';
+import { useAuth } from '../../../hooks/useAuth';
+
+import toast, { Toaster } from 'react-hot-toast';
+import { useExpensesGains } from '../../../hooks/useExpensesGains';
 
 const schema = yup
 	.object({
@@ -55,19 +59,27 @@ export const NewItem: React.FC = ({ children }) => {
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	function newItemHandler(data: INewItemForm) {
-		console.log(data);
-		setIsLoading(true);
+	const { user } = useAuth();
 
-		//* Add to firebase....
+	const { addItem, updateItemsList } = useExpensesGains();
 
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
+	async function newItemHandler(data: INewItemForm) {
+		if (user) {
+			const result = addItem(data);
+			if (!!result) {
+				setIsLoading(false);
+				toast.error('Item adicionado!', {
+					style: { background: '#258FB0', color: '#fff' },
+					duration: 3000,
+				});
+				updateItemsList();
+			}
+		}
 	}
 
 	return (
 		<Container>
+			<Toaster position='top-right' reverseOrder={false} />
 			<ContentHeader title='Incluir Item' lineColor='#258FB0'>
 				{children}
 			</ContentHeader>
@@ -152,7 +164,7 @@ export const NewItem: React.FC = ({ children }) => {
 						<textarea
 							className='form-field'
 							rows={5}
-							placeholder='Descreve um pouco sobre este item...'
+							placeholder='Descreva um pouco sobre este item...'
 							{...register('description')}
 						></textarea>
 					</FieldContainer>

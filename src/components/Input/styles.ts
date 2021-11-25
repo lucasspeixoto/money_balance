@@ -15,11 +15,11 @@ export const Container = styled.div`
 
 		border-radius: 5px;
 
-    border: 2px solid ${props => props.theme.colors.white};
+    border: 3px solid ${props => props.theme.colors.white};
 
 		&:hover {
 			opacity: 0.9;
-			border: 2px solid ${props => props.theme.colors.generic};
+			border: 3px solid ${props => props.theme.colors.generic};
 		}
 	}
 

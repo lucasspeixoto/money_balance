@@ -13,7 +13,7 @@ import {
 	ThemeToogleFooter,
 } from './styles';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
 import { Toggle } from '../Toggle';

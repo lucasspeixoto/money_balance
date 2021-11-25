@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import logoImg from '../../../assets/logo.svg';
+import logoImg from '../../../assets/logo.png';
 import { Button } from '../../../components/Button';
 
 import { Container, Form, FormTitle, Logo } from './styles';
