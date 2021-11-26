@@ -1,12 +1,12 @@
 export interface IData {
-	id?: string;
+	id?: string | any;
 	title: string;
-	type?: string;
+	type: string;
 
-	amount?: number;
+	amount: number;
 	frequency: string;
-	date?: string;
-	description?: string;
+	date: string;
+	description: string;
 
 	amountFormatted: string;
 	dateFormatted: string;

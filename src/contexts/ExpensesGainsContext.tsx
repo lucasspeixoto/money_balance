@@ -8,6 +8,8 @@ export interface ExpensesGainsContextType {
 	gains: IItem[] | undefined;
 	expenses: IItem[] | undefined;
 	addItem: (data: IItem) => Promise<firebase.firestore.DocumentData>;
+	deleteItem: (id: string) => Promise<void>;
+  updateItem: (data: IItem, id: string) => Promise<void>;
 	expensesAndGainsListener: () => Promise<void>;
 	updateItemsList: () => void;
 }
@@ -49,7 +51,6 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 					.get();
 
 				getResult.forEach(doc => {
-
 					let item: IItem | any = {
 						id: doc.id,
 						...doc.data(),
@@ -111,6 +112,16 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 		return result;
 	}
 
+	async function deleteItem(id: string) {
+		setIsLoading(true);
+		await firestore.doc(`users/${user?.id}/items/${id}`).delete();
+	}
+
+	async function updateItem(data: IItem, id: string) {
+		setIsLoading(true);
+		await firestore.doc(`users/${user?.id}/items/${id}`).update(data);
+	}
+
 	return (
 		<ExpensesGainsContext.Provider
 			value={{
@@ -118,6 +129,8 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 				gains,
 				expenses,
 				addItem,
+				deleteItem,
+        updateItem,
 				expensesAndGainsListener,
 				updateItemsList,
 			}}

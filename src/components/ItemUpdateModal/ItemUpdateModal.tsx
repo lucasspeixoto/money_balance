@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import ReactModal from 'react-modal';
 
@@ -8,7 +8,6 @@ import * as yup from 'yup';
 
 import { Description } from '../../pages/registration/NewItem/styles';
 import { Messages } from '../../utils/messages';
-import { ContentHeader } from '../ContentHeader';
 import {
 	Container,
 	Amount,
@@ -19,16 +18,25 @@ import {
 	Frequency,
 	Title,
 	Type,
+	CloseButton,
+	HeaderContainer,
+	TitleContainer,
+	Controllers,
 } from './styles';
 import { Button } from '../Button';
 
+import cancelImg from '../../assets/cancel.svg';
+
 import { IData } from '../../pages/interfaces/IData.model';
+import { useAuth } from '../../hooks/useAuth';
+import { useExpensesGains } from '../../hooks/useExpensesGains';
 
 interface IItemUpdateModalProps {
 	itemData?: IData | undefined;
 	title: string;
 	state: boolean;
-	callback: () => any;
+	hasDeleted: () => void;
+	hasUpdated: () => void;
 	setState: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -50,57 +58,68 @@ const schema = yup
 ReactModal.setAppElement('body');
 
 export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
+	itemData,
 	title,
-	callback,
 	state,
 	setState,
-	itemData,
+	hasDeleted,
+	hasUpdated,
 }) => {
-	const itemPreloadedValues = {
-		title: itemData?.title,
-		type: itemData?.type,
-		date: itemData?.date,
-		frequency: itemData?.frequency,
-		amount: itemData?.amount,
-		description: itemData?.description,
-	};
-
 	const {
 		register,
 		reset,
 		formState: { errors },
-		setValue,
+		getValues,
 	} = useForm({
-		defaultValues: itemPreloadedValues,
+		mode: 'onChange',
+		defaultValues: itemData
+			? {
+					title: itemData.title,
+					type: itemData.type,
+					date: itemData.date,
+					frequency: itemData.frequency,
+					amount: itemData.amount,
+					description: itemData.description,
+			  }
+			: undefined,
 		resolver: yupResolver(schema),
 	});
 
-	setValue('title', itemData?.title);
-	setValue('type', itemData?.type);
-	setValue('date', itemData?.date);
-	setValue('frequency', itemData?.frequency);
-	setValue('amount', itemData?.amount);
-	setValue('description', itemData?.description);
+	const { user } = useAuth();
+	const { deleteItem, updateItem, updateItemsList } = useExpensesGains();
+	const [isLoading, setIsLoading] = useState(false);
 
-	function handleCloseModal() {
-		alert('cancel');
-
+	function finishUpdateOrDeleteProcess() {
+		setIsLoading(false);
+		updateItemsList();
 		setState(false);
-
-		reset();
 	}
 
-	async function handleConfirm() {
-		await callback();
-		setState(false);
-		reset();
+	async function confirmUpdateItem() {
+		const updatedItem = getValues();
+
+		if (user) {
+			await updateItem(updatedItem, itemData?.id);
+			finishUpdateOrDeleteProcess();
+			reset();
+			hasUpdated();
+		}
+	}
+
+	async function confirmDeleteItem() {
+		if (user) {
+			await deleteItem(itemData?.id);
+			finishUpdateOrDeleteProcess();
+			reset();
+			hasDeleted();
+		}
 	}
 
 	return (
 		<ReactModal
 			className='modal'
 			isOpen={state}
-			onRequestClose={handleCloseModal}
+			onRequestClose={() => setState(false)}
 			style={{
 				overlay: {
 					display: 'flex',
@@ -110,16 +129,26 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 					backgroundColor: 'rgba(5, 2, 6, 0.8)',
 				},
 				content: {
-					width: '40vw',
+					width: 'auto',
 					height: 'auto',
-					borderRadius: '8px',
+
+					borderRadius: '11px',
 					border: '2px solid #000',
 					outline: 'none',
 				},
 			}}
 		>
 			<Container>
-				<ContentHeader title={title} lineColor='#258FB0' />
+				<HeaderContainer>
+					<TitleContainer lineColor='#258FB0'>
+						<h1>{title}</h1>
+					</TitleContainer>
+					<Controllers>
+						<CloseButton onClick={() => setState(false)}>
+							<img src={cancelImg} alt='Sair' />
+						</CloseButton>
+					</Controllers>
+				</HeaderContainer>
 				<Form>
 					<Title>
 						<FieldContainer>
@@ -214,15 +243,14 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 					</Description>
 					<ButtonsContainer>
 						<Button
-							onClick={handleConfirm}
-							disabled={false}
+							onClick={confirmDeleteItem}
 							background='#AC1530'
 							type='button'
 							label='Excluir'
 						></Button>
 						<Button
-							onClick={handleCloseModal}
-							disabled={false}
+							disabled={isLoading}
+							onClick={confirmUpdateItem}
 							background='#A9AC15'
 							type='button'
 							label='Atualizar'

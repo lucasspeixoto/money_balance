@@ -17,6 +17,7 @@ import { actualMonth, actualYear } from '../../../utils/generic';
 import { IData } from '../../interfaces/IData.model';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
 import { ItemUpdateModal } from '../../../components/ItemUpdateModal/ItemUpdateModal';
+import toast, { Toaster } from 'react-hot-toast';
 
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };
@@ -32,20 +33,7 @@ export const List: React.FC = () => {
 		'eventual',
 	]);
 
-	const [selectedItem, setSelectedItem] = useState<IData>({
-		id: '',
-		title: '',
-		type: '',
-
-		amount: 0,
-		frequency: '',
-		date: '',
-		description: '',
-
-		amountFormatted: '',
-		dateFormatted: '',
-		tagColor: '',
-	});
+	const [selectedItem, setSelectedItem] = useState<IData>();
 
 	const { type } = useParams(); //* entry-balance ou exit-balance
 
@@ -157,19 +145,29 @@ export const List: React.FC = () => {
 		});
 	}, [listData]);
 
-	function handleItemUpdate(): void {
-		setIsItemUpdateModalOpen(false);
-		alert('handle Item Update');
-	}
-
 	function itemUpdateModalOpen(item: IData) {
 		setSelectedItem(item);
 
 		setIsItemUpdateModalOpen(true);
 	}
 
+	function handleDeleteItem() {
+		toast.error('Item Excluído!', {
+			style: { background: '#258FB0', color: '#fff' },
+			duration: 3000,
+		});
+	}
+
+	function handleUpdateItem() {
+		toast.error('Item Editado!', {
+			style: { background: '#258FB0', color: '#fff' },
+			duration: 3000,
+		});
+	}
+
 	return (
 		<Container>
+			<Toaster position='top-right' reverseOrder={false} />
 			<ContentHeader
 				title={titleAndLinecolor.title}
 				lineColor={titleAndLinecolor.lineColor}
@@ -219,13 +217,16 @@ export const List: React.FC = () => {
 					</div>
 				))}
 			</Content>
-			<ItemUpdateModal
-				itemData={selectedItem}
-				state={isItemUpdateModalOpen}
-				setState={setIsItemUpdateModalOpen}
-				callback={handleItemUpdate}
-				title='Edição e Exclusão de Item'
-			/>
+			{isItemUpdateModalOpen && (
+				<ItemUpdateModal
+					itemData={selectedItem}
+					state={isItemUpdateModalOpen}
+					setState={setIsItemUpdateModalOpen}
+					title='Detalhe'
+					hasDeleted={handleDeleteItem}
+					hasUpdated={handleUpdateItem}
+				/>
+			)}
 		</Container>
 	);
 };

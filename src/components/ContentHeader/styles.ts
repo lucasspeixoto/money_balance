@@ -30,10 +30,9 @@ export const TitleContainer = styled.div<ITitleContainerProps>`
 	}
 
 	@media (max-width: 420px) {
+
 		> h1 {
 			font-size: 22px;
-
-
 		}
 	}
 `;
@@ -47,6 +46,7 @@ export const Controllers = styled.div`
 		justify-content: space-around;
 
 		margin-top: 10px;
+
 
 	}
 `;
