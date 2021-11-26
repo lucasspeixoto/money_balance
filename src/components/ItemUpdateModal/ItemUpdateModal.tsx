@@ -6,8 +6,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { IData } from '../../pages/interfaces/IData.model';
-import { IUpdateItemForm } from '../../pages/registration/NewItem';
 import { Description } from '../../pages/registration/NewItem/styles';
 import { Messages } from '../../utils/messages';
 import { ContentHeader } from '../ContentHeader';
@@ -23,6 +21,8 @@ import {
 	Type,
 } from './styles';
 import { Button } from '../Button';
+
+import { IData } from '../../pages/interfaces/IData.model';
 
 interface IItemUpdateModalProps {
 	itemData?: IData | undefined;
@@ -56,22 +56,44 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 	setState,
 	itemData,
 }) => {
+	const itemPreloadedValues = {
+		title: itemData?.title,
+		type: itemData?.type,
+		date: itemData?.date,
+		frequency: itemData?.frequency,
+		amount: itemData?.amount,
+		description: itemData?.description,
+	};
+
 	const {
 		register,
+		reset,
 		formState: { errors },
-	} = useForm<IUpdateItemForm>({
+		setValue,
+	} = useForm({
+		defaultValues: itemPreloadedValues,
 		resolver: yupResolver(schema),
 	});
+
+	setValue('title', itemData?.title);
+	setValue('type', itemData?.type);
+	setValue('date', itemData?.date);
+	setValue('frequency', itemData?.frequency);
+	setValue('amount', itemData?.amount);
+	setValue('description', itemData?.description);
 
 	function handleCloseModal() {
 		alert('cancel');
 
 		setState(false);
+
+		reset();
 	}
 
 	async function handleConfirm() {
 		await callback();
 		setState(false);
+		reset();
 	}
 
 	return (
@@ -105,9 +127,9 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 							<input
 								className='form-field'
 								type='text'
-								id='title'
 								placeholder='Titulo'
 								{...register('title')}
+								name='title'
 							/>
 						</FieldContainer>
 						{errors.title && (
@@ -117,7 +139,7 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 					<Type>
 						<FieldContainer>
 							<label id='type'>Tipo</label>
-							<select className='form-field' {...register('type')}>
+							<select className='form-field' {...register('type')} name='type'>
 								<option value='entry' label='Entrada'></option>
 								<option value='exit' label='Saída'></option>
 							</select>
@@ -136,6 +158,7 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 								type='date'
 								id='date'
 								placeholder='Data'
+								name='date'
 							/>
 						</FieldContainer>
 
@@ -146,7 +169,11 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 					<Frequency>
 						<FieldContainer>
 							<label id='frequency'>Frequência</label>
-							<select className='form-field' {...register('frequency')}>
+							<select
+								className='form-field'
+								{...register('frequency')}
+								name='frequency'
+							>
 								<option value='recurring' label='Recorrente'></option>
 								<option value='eventual' label='Eventual'></option>
 							</select>
@@ -162,11 +189,11 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 							<input
 								className='form-field'
 								type='number'
-								id='amount'
 								min='1'
 								max='1000000'
 								placeholder='R$ Valor'
 								{...register('amount')}
+								name='amount'
 							/>
 						</FieldContainer>
 						{errors.amount && (
@@ -181,6 +208,7 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 								rows={5}
 								placeholder='Descreva um pouco sobre este item...'
 								{...register('description')}
+								name='description'
 							></textarea>
 						</FieldContainer>
 					</Description>

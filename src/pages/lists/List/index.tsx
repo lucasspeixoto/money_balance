@@ -35,8 +35,14 @@ export const List: React.FC = () => {
 	const [selectedItem, setSelectedItem] = useState<IData>({
 		id: '',
 		title: '',
-		amountFormatted: '',
+		type: '',
+
+		amount: 0,
 		frequency: '',
+		date: '',
+		description: '',
+
+		amountFormatted: '',
 		dateFormatted: '',
 		tagColor: '',
 	});
@@ -104,12 +110,18 @@ export const List: React.FC = () => {
 					frequencyFilterSelected,
 				),
 			);
+
 			const response = filtered.map(item => {
 				return {
 					id: item.id,
 					title: item.title,
-					amountFormatted: formatCurrency(item.amount),
+					type: item.type,
+					amount: item.amount,
 					frequency: item.frequency,
+					date: item.date,
+					description: item.description,
+
+					amountFormatted: formatCurrency(item.amount),
 					dateFormatted: formatDate(item.date),
 					tagColor: item.frequency === 'recurring' ? '#4E41F0' : '#D0CB4B',
 				};
@@ -152,8 +164,8 @@ export const List: React.FC = () => {
 
 	function itemUpdateModalOpen(item: IData) {
 		setSelectedItem(item);
-		console.log(item);
-    setIsItemUpdateModalOpen(true);
+
+		setIsItemUpdateModalOpen(true);
 	}
 
 	return (
