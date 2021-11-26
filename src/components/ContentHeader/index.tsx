@@ -5,7 +5,7 @@ import { Container, TitleContainer, Controllers } from './styles';
 interface IContentHeaderProps {
 	title: string;
 	lineColor: string;
-	children: React.ReactNode;
+	children?: React.ReactNode;
 }
 
 export const ContentHeader: React.FC<IContentHeaderProps> = ({

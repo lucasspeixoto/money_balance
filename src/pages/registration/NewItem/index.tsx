@@ -39,7 +39,7 @@ const schema = yup
 	})
 	.required();
 
-interface INewItemForm {
+export interface IUpdateItemForm {
 	title: string;
 	type: string;
 	date: string;
@@ -53,7 +53,7 @@ export const NewItem: React.FC = ({ children }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<INewItemForm>({
+	} = useForm<IUpdateItemForm>({
 		resolver: yupResolver(schema),
 	});
 
@@ -63,7 +63,7 @@ export const NewItem: React.FC = ({ children }) => {
 
 	const { addItem, updateItemsList } = useExpensesGains();
 
-	async function newItemHandler(data: INewItemForm) {
+	async function newItemHandler(data: IUpdateItemForm) {
 		if (user) {
 			const result = addItem(data);
 			if (!!result) {

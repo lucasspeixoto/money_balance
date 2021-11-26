@@ -31,7 +31,6 @@ import ueImg from '../../../assets/ue.svg';
 // * Interfaces/Models/Types
 import { IMessageBoxProps } from '../../interfaces/IMessageBoxProps.model';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
-//import { IItem } from '../../../contexts/ExpensesGainsContext';
 
 export const Dashboard: React.FC = () => {
 	const [month, setMonth] = useState<number>(actualMonth);

@@ -13,6 +13,7 @@ export interface ExpensesGainsContextType {
 }
 
 export interface IItem {
+	id?: string;
 	title: string;
 	date: string;
 	frequency: string;
@@ -48,7 +49,11 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 					.get();
 
 				getResult.forEach(doc => {
-					const item: IItem | any = doc.data();
+
+					let item: IItem | any = {
+						id: doc.id,
+						...doc.data(),
+					};
 					if (item.type === 'entry') {
 						itemsGains.push(item);
 					} else {

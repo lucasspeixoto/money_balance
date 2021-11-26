@@ -7,9 +7,6 @@ import { ContentHeader } from '../../../components/ContentHeader';
 import { SelectInput } from '../../../components/SelectInput';
 import { FinanceCardItem } from '../../../components/FinanceCardItem';
 
-import gains from '../../../repositories/gains';
-import expenses from '../../../repositories/expenses';
-
 import {
 	formatCurrency,
 	formatDate,
@@ -18,22 +15,35 @@ import {
 import { listOfMonths } from '../../../utils/constants';
 import { actualMonth, actualYear } from '../../../utils/generic';
 import { IData } from '../../interfaces/IData.model';
+import { useExpensesGains } from '../../../hooks/useExpensesGains';
+import { ItemUpdateModal } from '../../../components/ItemUpdateModal/ItemUpdateModal';
 
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };
 const exitData = { title: 'Saídas', lineColor: '#CC2A2C' };
 
-
 export const List: React.FC = () => {
 	const [data, setData] = useState<IData[]>([]);
 	const [month, setMonth] = useState<number>(actualMonth);
 	const [year, setYear] = useState<number>(actualYear);
+	const [isItemUpdateModalOpen, setIsItemUpdateModalOpen] = useState(false);
 	const [frequencyFilterSelected, setFrequencyFilterSelected] = useState([
 		'recurring',
 		'eventual',
 	]);
 
+	const [selectedItem, setSelectedItem] = useState<IData>({
+		id: '',
+		title: '',
+		amountFormatted: '',
+		frequency: '',
+		dateFormatted: '',
+		tagColor: '',
+	});
+
 	const { type } = useParams(); //* entry-balance ou exit-balance
+
+	const { expenses, gains } = useExpensesGains();
 
 	const titleAndLinecolor = useMemo(() => {
 		return type === 'entry-balance' ? entryData : exitData;
@@ -41,7 +51,7 @@ export const List: React.FC = () => {
 
 	const listData = useMemo(() => {
 		return type === 'entry-balance' ? gains : expenses;
-	}, [type]);
+	}, [type, expenses, gains]);
 
 	const handleSelectedFrequency = useCallback(
 		(frequency: string) => {
@@ -67,7 +77,7 @@ export const List: React.FC = () => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-      localStorage.setItem('month', String(parseMonth));
+			localStorage.setItem('month', String(parseMonth));
 		} catch {
 			throw new Error('invalid month value');
 		}
@@ -77,32 +87,35 @@ export const List: React.FC = () => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-      localStorage.setItem('year', String(parseYear));
+			localStorage.setItem('year', String(parseYear));
 		} catch {
 			throw new Error('invalid year value');
 		}
 	}, []);
 
 	useEffect(() => {
-		const filtered = listData.filter(item =>
-			filterItems(
-				item.date,
-				year,
-				month,
-				item.frequency,
-				frequencyFilterSelected,
-			),
-		);
-		const response = filtered.map(item => {
-			return {
-				title: item.title,
-				amountFormatted: formatCurrency(item.amount),
-				frequency: item.frequency,
-				dateFormatted: formatDate(item.date),
-				tagColor: item.frequency === 'recurring' ? '#4E41F0' : '#D0CB4B',
-			};
-		});
-		setData(response);
+		if (listData) {
+			const filtered = listData.filter(item =>
+				filterItems(
+					item.date,
+					year,
+					month,
+					item.frequency,
+					frequencyFilterSelected,
+				),
+			);
+			const response = filtered.map(item => {
+				return {
+					id: item.id,
+					title: item.title,
+					amountFormatted: formatCurrency(item.amount),
+					frequency: item.frequency,
+					dateFormatted: formatDate(item.date),
+					tagColor: item.frequency === 'recurring' ? '#4E41F0' : '#D0CB4B',
+				};
+			});
+			setData(response);
+		}
 	}, [listData, year, month, data.length, frequencyFilterSelected]);
 
 	const months = useMemo(() => {
@@ -114,13 +127,15 @@ export const List: React.FC = () => {
 	const years = useMemo(() => {
 		let uniqueYears: number[] = [];
 
-		listData.forEach(item => {
-			const date = new Date(item.date);
-			const year = date.getFullYear();
-			if (!uniqueYears.includes(year)) {
-				uniqueYears.push(year);
-			}
-		});
+		if (listData) {
+			listData.forEach(item => {
+				const date = new Date(item.date);
+				const year = date.getFullYear();
+				if (!uniqueYears.includes(year)) {
+					uniqueYears.push(year);
+				}
+			});
+		}
 
 		return uniqueYears.map(year => {
 			return {
@@ -129,6 +144,17 @@ export const List: React.FC = () => {
 			};
 		});
 	}, [listData]);
+
+	function handleItemUpdate(): void {
+		setIsItemUpdateModalOpen(false);
+		alert('handle Item Update');
+	}
+
+	function itemUpdateModalOpen(item: IData) {
+		setSelectedItem(item);
+		console.log(item);
+    setIsItemUpdateModalOpen(true);
+	}
 
 	return (
 		<Container>
@@ -171,15 +197,23 @@ export const List: React.FC = () => {
 
 			<Content>
 				{data.map((item, index) => (
-					<FinanceCardItem
-						key={index}
-						tagColor={item.tagColor}
-						title={item.title}
-						subtitle={item.dateFormatted}
-						amount={item.amountFormatted}
-					/>
+					<div onClick={() => itemUpdateModalOpen(item)} key={index}>
+						<FinanceCardItem
+							tagColor={item.tagColor}
+							title={item.title}
+							subtitle={item.dateFormatted}
+							amount={item.amountFormatted}
+						/>
+					</div>
 				))}
 			</Content>
+			<ItemUpdateModal
+				itemData={selectedItem}
+				state={isItemUpdateModalOpen}
+				setState={setIsItemUpdateModalOpen}
+				callback={handleItemUpdate}
+				title='Edição e Exclusão de Item'
+			/>
 		</Container>
 	);
 };

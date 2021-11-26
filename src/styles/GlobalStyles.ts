@@ -71,6 +71,19 @@ export default createGlobalStyle`
   textarea {
 	  font-size: 5.5rem;
 	  resize: none;
-}
+  }
+
+  .modal {
+    background: ${props => props.theme.colors.primary};
+
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    height: 300px;
+
+    align-items: center;
+    justify-content: center;
+  }
 
 `;
