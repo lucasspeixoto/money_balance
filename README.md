@@ -6,13 +6,9 @@
 
 ## 💻 Projeto
 
-[Money Balance](https://github.com/lucasspeixoto/money_balance) Projeto de controle financeiro para praticar o uso do React e Styled Components. O projeto tem objetivo de auxiliar no controle de ganhos e despesas de minha família com minha noiva, Liana Fernandes.
+[Money Balance](https://money-balance-app.web.app/) Projeto de controle financeiro para praticar o uso do React e Styled Components. O projeto tem objetivo de auxiliar no controle de ganhos e despesas de minha família com minha noiva, Liana Fernandes.
 
 - [x] React
-- [x] Comunicação Entre componentes
-- [x] UseState
-- [x] UseEffect
-- [x] UseMemo
 - [x] Styled Components
 - [x] Context API
 - [x] Reacharts
@@ -31,7 +27,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias/bibliotecas:
 
 ## 🔖 Layout
 
-![interface](src/assets/layout.png 'Layout')
+![caption](src/assets/presentation.gif)
 
 
 ## 🚀 Instalação
