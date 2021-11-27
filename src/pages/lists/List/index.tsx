@@ -8,16 +8,15 @@ import { SelectInput } from '../../../components/SelectInput';
 import { FinanceCardItem } from '../../../components/FinanceCardItem';
 
 import {
-	formatCurrency,
 	formatDate,
 	filterItems,
 } from '../../../utils/generic';
-import { listOfMonths } from '../../../utils/constants';
+import { months, years } from '../../../utils/constants';
 import { actualMonth, actualYear } from '../../../utils/generic';
 import { IData } from '../../interfaces/IData.model';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
 import { ItemUpdateModal } from '../../../components/ItemUpdateModal/ItemUpdateModal';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 //* Constantes
 const entryData = { title: 'Entradas', lineColor: '#187D5F' };
@@ -25,13 +24,14 @@ const exitData = { title: 'Saídas', lineColor: '#CC2A2C' };
 
 export const List: React.FC = () => {
 	const [data, setData] = useState<IData[]>([]);
-	const [month, setMonth] = useState<number>(actualMonth);
-	const [year, setYear] = useState<number>(actualYear);
 	const [isItemUpdateModalOpen, setIsItemUpdateModalOpen] = useState(false);
 	const [frequencyFilterSelected, setFrequencyFilterSelected] = useState([
 		'recurring',
 		'eventual',
 	]);
+
+	const [month, setMonth] = useState<number>(actualMonth);
+	const [year, setYear] = useState<number>(actualYear);
 
 	const [selectedItem, setSelectedItem] = useState<IData>();
 
@@ -71,7 +71,7 @@ export const List: React.FC = () => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-			localStorage.setItem('month', String(parseMonth));
+			localStorage.setItem('@money_balance:month', String(parseMonth));
 		} catch {
 			throw new Error('invalid month value');
 		}
@@ -81,7 +81,7 @@ export const List: React.FC = () => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-			localStorage.setItem('year', String(parseYear));
+			localStorage.setItem('@money_balance:year', String(parseYear));
 		} catch {
 			throw new Error('invalid year value');
 		}
@@ -109,22 +109,21 @@ export const List: React.FC = () => {
 					date: item.date,
 					description: item.description,
 
-					amountFormatted: formatCurrency(item.amount),
 					dateFormatted: formatDate(item.date),
 					tagColor: item.frequency === 'recurring' ? '#4E41F0' : '#D0CB4B',
 				};
 			});
 			setData(response);
 		}
-	}, [listData, year, month, data.length, frequencyFilterSelected]);
+	}, [type, listData, year, month, data.length, frequencyFilterSelected]);
 
-	const months = useMemo(() => {
+	/* const months = useMemo(() => {
 		return listOfMonths.map((month, index) => {
 			return { value: index + 1, label: month };
 		});
-	}, []);
+	}, []); */
 
-	const years = useMemo(() => {
+	/* const years = useMemo(() => {
 		let uniqueYears: number[] = [];
 
 		if (listData) {
@@ -137,13 +136,15 @@ export const List: React.FC = () => {
 			});
 		}
 
-		return uniqueYears.map(year => {
-			return {
-				label: year,
-				value: year,
-			};
-		});
-	}, [listData]);
+		return uniqueYears
+			.sort((first, second) => first - second)
+			.map(year => {
+				return {
+					label: year,
+					value: year,
+				};
+			});
+	}, [listData]); */
 
 	function itemUpdateModalOpen(item: IData) {
 		setSelectedItem(item);
@@ -152,22 +153,34 @@ export const List: React.FC = () => {
 	}
 
 	function handleDeleteItem() {
-		toast.error('Item Excluído!', {
-			style: { background: '#258FB0', color: '#fff' },
+		toast.success('Item Excluído!', {
+			style: { background: '#4E41F0', color: '#fff' },
 			duration: 3000,
 		});
 	}
 
 	function handleUpdateItem() {
-		toast.error('Item Editado!', {
-			style: { background: '#258FB0', color: '#fff' },
+		toast.success('Item Editado!', {
+			style: { background: '#4E41F0', color: '#fff' },
 			duration: 3000,
 		});
 	}
 
 	return (
 		<Container>
-			<Toaster position='top-right' reverseOrder={false} />
+			<Toaster position='top-right' reverseOrder={false}>
+				{t => (
+					<ToastBar
+						toast={t}
+						style={{
+							...t.style,
+							animation: t.visible
+								? 'custom-enter 1s ease'
+								: 'custom-exit 1s ease',
+						}}
+					/>
+				)}
+			</Toaster>
 			<ContentHeader
 				title={titleAndLinecolor.title}
 				lineColor={titleAndLinecolor.lineColor}
@@ -183,7 +196,6 @@ export const List: React.FC = () => {
 					defaultValue={year}
 				/>
 			</ContentHeader>
-
 			<Filters>
 				<button
 					className={`tag-filter tag-filter-recurring
@@ -204,7 +216,6 @@ export const List: React.FC = () => {
 					Eventuais
 				</button>
 			</Filters>
-
 			<Content>
 				{data.map((item, index) => (
 					<div onClick={() => itemUpdateModalOpen(item)} key={index}>
@@ -212,7 +223,7 @@ export const List: React.FC = () => {
 							tagColor={item.tagColor}
 							title={item.title}
 							subtitle={item.dateFormatted}
-							amount={item.amountFormatted}
+							amount={item.amount}
 						/>
 					</div>
 				))}

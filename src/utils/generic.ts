@@ -47,10 +47,10 @@ export const filterItems = (
 
 export const actualDay = new Date().getDate() + 1;
 
-export const actualMonth = localStorage.getItem('month')
-	? Number(localStorage.getItem('month'))
+export const actualMonth = localStorage.getItem('@money_balance:month')
+	? Number(localStorage.getItem('@money_balance:month'))
 	: new Date().getMonth() + 1;
 
-export const actualYear = localStorage.getItem('year')
-	? Number(localStorage.getItem('year'))
+export const actualYear = localStorage.getItem('@money_balance:year')
+	? Number(localStorage.getItem('@money_balance:year'))
 	: new Date().getFullYear();

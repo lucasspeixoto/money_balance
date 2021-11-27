@@ -13,9 +13,8 @@ import { BalanceChart } from '../../../components/BalanceChart';
 import { HistoryChart } from '../../../components/HistoryChart';
 import { TypesChart } from '../../../components/TypesChart';
 
-
 //* Utils
-import { listOfMonths } from '../../../utils/constants';
+import { listOfMonths, months, years } from '../../../utils/constants';
 import {
 	actualMonth,
 	actualYear,
@@ -33,7 +32,7 @@ import { IMessageBoxProps } from '../../interfaces/IMessageBoxProps.model';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
 
 export const Dashboard: React.FC = () => {
-	const [month, setMonth] = useState<number>(actualMonth);
+  const [month, setMonth] = useState<number>(actualMonth);
 	const [year, setYear] = useState<number>(actualYear);
 
 	const { expenses, gains } = useExpensesGains();
@@ -80,20 +79,19 @@ export const Dashboard: React.FC = () => {
 		return totalGains - totalExpenses;
 	}, [totalExpenses, totalGains]);
 
-	const months = useMemo(() => {
+	/* const months = useMemo(() => {
 		return listOfMonths.map((month, index) => {
 			return { value: index + 1, label: month };
 		});
-	}, []);
+	}, []); */
 
-	const years = useMemo(() => {
+/* 	const years = useMemo(() => {
 		let uniqueYears: number[] = [];
 
 		if (expenses && gains) {
 			[...gains, ...expenses].forEach((item: any) => {
 				if (item) {
 					const date = new Date(item.date);
-
 					const year = date.getFullYear();
 					if (!uniqueYears.includes(year)) {
 						uniqueYears.push(year);
@@ -102,13 +100,15 @@ export const Dashboard: React.FC = () => {
 			});
 		}
 
-		return uniqueYears.map(year => {
-			return {
-				label: year,
-				value: year,
-			};
-		});
-	}, [gains, expenses]);
+		return uniqueYears
+			.sort((first, second) => first - second)
+			.map(year => {
+				return {
+					label: year,
+					value: year,
+				};
+			});
+	}, [gains, expenses]); */
 
 	const message: IMessageBoxProps = useMemo(() => {
 		if (totalBalance > 0) {
@@ -326,7 +326,7 @@ export const Dashboard: React.FC = () => {
 		try {
 			const parseMonth = Number(month);
 			setMonth(parseMonth);
-			localStorage.setItem('month', String(parseMonth));
+			localStorage.setItem('@money_balance:month', String(parseMonth));
 		} catch {
 			throw new Error('invalid month value');
 		}
@@ -336,7 +336,7 @@ export const Dashboard: React.FC = () => {
 		try {
 			const parseYear = Number(year);
 			setYear(parseYear);
-			localStorage.setItem('year', String(parseYear));
+			localStorage.setItem('@money_balance:year', String(parseYear));
 		} catch {
 			throw new Error('invalid year value');
 		}

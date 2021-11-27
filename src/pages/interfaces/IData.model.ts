@@ -8,7 +8,6 @@ export interface IData {
 	date: string;
 	description: string;
 
-	amountFormatted: string;
 	dateFormatted: string;
 	tagColor: string;
 }

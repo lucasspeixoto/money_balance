@@ -1,15 +1,15 @@
 import { createContext, useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
-import { firebase, firestore } from '../services/firebase';
+import { firestore } from '../services/firebase';
 
 export interface ExpensesGainsContextType {
 	isLoading: boolean;
 	gains: IItem[] | undefined;
 	expenses: IItem[] | undefined;
-	addItem: (data: IItem) => Promise<firebase.firestore.DocumentData>;
+	addItem: (data: IItem) => Promise<void>;
 	deleteItem: (id: string) => Promise<void>;
-  updateItem: (data: IItem, id: string) => Promise<void>;
+	updateItem: (data: IItem, id: string) => Promise<void>;
 	expensesAndGainsListener: () => Promise<void>;
 	updateItemsList: () => void;
 }
@@ -82,7 +82,7 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 		let itemsExpenses: IItem[] = [];
 
 		if (user) {
-			const listenResult = await firestore
+			const listenResult = firestore
 				.collection('users')
 				.doc(`/${user?.id}`)
 				.collection('items');
@@ -105,11 +105,7 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 
 	async function addItem(data: IItem) {
 		setIsLoading(true);
-		const result = await firestore
-			.collection(`users/${user?.id}/items`)
-			.add({ ...data });
-
-		return result;
+		await firestore.collection(`users/${user?.id}/items`).add({ ...data });
 	}
 
 	async function deleteItem(id: string) {
@@ -130,7 +126,7 @@ export const ExpensesGainsContextProvider: React.FC = ({ children }) => {
 				expenses,
 				addItem,
 				deleteItem,
-        updateItem,
+				updateItem,
 				expensesAndGainsListener,
 				updateItemsList,
 			}}

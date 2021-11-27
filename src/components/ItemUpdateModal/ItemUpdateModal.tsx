@@ -96,7 +96,7 @@ export const ItemUpdateModal: React.FC<IItemUpdateModalProps> = ({
 	}
 
 	async function confirmUpdateItem() {
-		const updatedItem = getValues();
+		let updatedItem = getValues();
 
 		if (user) {
 			await updateItem(updatedItem, itemData?.id);

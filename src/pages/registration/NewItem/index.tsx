@@ -21,7 +21,7 @@ import { Messages } from '../../../utils/messages';
 import { Button } from '../../../components/Button';
 import { useAuth } from '../../../hooks/useAuth';
 
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
 
 const schema = yup
@@ -65,21 +65,32 @@ export const NewItem: React.FC = ({ children }) => {
 
 	async function newItemHandler(data: IUpdateItemForm) {
 		if (user) {
-			const result = addItem(data);
-			if (!!result) {
-				setIsLoading(false);
-				toast.error('Item adicionado!', {
-					style: { background: '#258FB0', color: '#fff' },
-					duration: 3000,
-				});
-				updateItemsList();
-			}
+			await addItem(data);
+
+			setIsLoading(false);
+			toast.success('Item adicionado!', {
+				style: { background: '#4E41F0', color: '#fff' },
+				duration: 3000,
+			});
+			updateItemsList();
 		}
 	}
 
 	return (
 		<Container>
-			<Toaster position='top-right' reverseOrder={false} />
+			<Toaster position='top-right' reverseOrder={false}>
+				{t => (
+					<ToastBar
+						toast={t}
+						style={{
+							...t.style,
+							animation: t.visible
+								? 'custom-enter 1s ease'
+								: 'custom-exit 1s ease',
+						}}
+					/>
+				)}
+			</Toaster>
 			<ContentHeader title='Incluir Item' lineColor='#258FB0'>
 				{children}
 			</ContentHeader>
