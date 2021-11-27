@@ -32,7 +32,7 @@ import { IMessageBoxProps } from '../../interfaces/IMessageBoxProps.model';
 import { useExpensesGains } from '../../../hooks/useExpensesGains';
 
 export const Dashboard: React.FC = () => {
-  const [month, setMonth] = useState<number>(actualMonth);
+	const [month, setMonth] = useState<number>(actualMonth);
 	const [year, setYear] = useState<number>(actualYear);
 
 	const { expenses, gains } = useExpensesGains();
@@ -85,7 +85,7 @@ export const Dashboard: React.FC = () => {
 		});
 	}, []); */
 
-/* 	const years = useMemo(() => {
+	/* 	const years = useMemo(() => {
 		let uniqueYears: number[] = [];
 
 		if (expenses && gains) {
@@ -369,7 +369,9 @@ export const Dashboard: React.FC = () => {
 					title='Entradas'
 					color='#187D5F'
 					amount={totalGains}
-					footerLabel='última movimentação em 16/11/2021 às 17h40'
+					footerLabel={`total de entradas em ${listOfMonths[
+						month
+					].toLowerCase()} de ${year}`}
 					icon='arrow-up'
 				/>
 
@@ -377,7 +379,9 @@ export const Dashboard: React.FC = () => {
 					title='Saídas'
 					color='#CC2A2C'
 					amount={totalExpenses}
-					footerLabel='última movimentação em 15/11/2021 às 12h40'
+					footerLabel={`total de saídas em ${listOfMonths[
+						month
+					].toLowerCase()} de ${year}`}
 					icon='arrow-down'
 				/>
 				<MessageBox
