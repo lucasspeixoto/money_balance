@@ -370,7 +370,7 @@ export const Dashboard: React.FC = () => {
 					color='#187D5F'
 					amount={totalGains}
 					footerLabel={`total de entradas em ${listOfMonths[
-						month
+						month - 1
 					].toLowerCase()} de ${year}`}
 					icon='arrow-up'
 				/>
@@ -380,7 +380,7 @@ export const Dashboard: React.FC = () => {
 					color='#CC2A2C'
 					amount={totalExpenses}
 					footerLabel={`total de saídas em ${listOfMonths[
-						month
+						month - 1
 					].toLowerCase()} de ${year}`}
 					icon='arrow-down'
 				/>
